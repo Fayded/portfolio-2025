@@ -1,0 +1,101 @@
+// CSS Grid System Examples - Modern approach without negative margins!
+
+/*
+Basic Usage Examples:
+
+1. Simple Layout:
+<div class="container">
+  <div class="grid">
+    <div class="col-12">Spans 12 columns</div>
+    <div class="col-12">Spans 12 columns</div>
+  </div>
+</div>
+
+2. Responsive Layout:
+<div class="container">
+  <div class="grid">
+    <div class="col-24 col-md-12 col-lg-8">Main content</div>
+    <div class="col-24 col-md-12 col-lg-16">Sidebar area</div>
+  </div>
+</div>
+
+3. Precise Positioning (instead of offsets):
+<div class="container">
+  <div class="grid">
+    <div class="col-start-5 col-end-13">Starts at column 5, ends at 13</div>
+    <div class="col-start-15 col-end-21">Starts at column 15, ends at 21</div>
+  </div>
+</div>
+
+4. Complex Layout with Multiple Breakpoints:
+<div class="container">
+  <div class="grid">
+    <div class="col-24 col-sm-12 col-md-8 col-lg-6">
+      Responsive column spanning
+    </div>
+    <div class="col-24 col-sm-12 col-md-8 col-lg-start-10 col-lg-end-18">
+      Different positioning per breakpoint
+    </div>
+  </div>
+</div>
+
+5. Row Spanning:
+<div class="container">
+  <div class="grid">
+    <div class="col-12 row-2">Spans 12 columns and 2 rows</div>
+    <div class="col-12">Single row, 12 columns</div>
+    <div class="col-12">Single row, 12 columns</div>
+  </div>
+</div>
+
+Grid Breakdown (24 columns):
+- col-1 = 1/24 of grid width
+- col-3 = 3/24 = 1/8 of grid
+- col-4 = 4/24 = 1/6 of grid  
+- col-6 = 6/24 = 1/4 of grid
+- col-8 = 8/24 = 1/3 of grid
+- col-12 = 12/24 = 1/2 of grid
+- col-16 = 16/24 = 2/3 of grid
+- col-18 = 18/24 = 3/4 of grid
+- col-24 = 24/24 = full width
+- col-full = full width (alternative)
+
+Positioning Classes:
+- col-start-1 through col-start-24 - start position
+- col-end-1 through col-end-25 - end position
+- row-1 through row-12 - row spanning
+- row-start-1 through row-start-12 - row start position
+- row-end-1 through row-end-12 - row end position
+
+Breakpoints:
+- xs: 0px (default, no prefix needed)
+- sm: 576px
+- md: 768px  
+- lg: 992px
+- xl: 1200px
+- xxl: 1400px
+
+Grid Container Options:
+- .grid - standard CSS grid with gap
+- .grid.no-gap - removes all gaps
+- .grid.gap-sm - smaller gap (0.5rem)
+- .grid.gap-lg - larger gap (2rem)
+- .grid.gap-xl - extra large gap (3rem)
+
+Grid Alignment Utilities:
+- .justify-items-* - align all items horizontally
+- .align-items-* - align all items vertically
+- .justify-content-* - align grid tracks horizontally
+- .align-content-* - align grid tracks vertically
+- .justify-self-* - align individual item horizontally
+- .align-self-* - align individual item vertically
+
+Advantages of CSS Grid over Flexbox:
+✅ No negative margins needed
+✅ No padding hacks required  
+✅ Cleaner markup
+✅ More precise control
+✅ Native gap support
+✅ Better for 2D layouts
+✅ Easier responsive behavior
+*/
