@@ -1,0 +1,42 @@
+@import "./_variables.css";
+@import "./_grid.css";
+
+.work {
+  .work-item {
+    margin-top: 15rem;
+    position: relative;
+    display: inline-flex;
+    
+    div {
+      position: absolute;
+      display: block;
+      height: 250px;
+      overflow: hidden;
+      border-radius: 12px;
+      clip-path: fill-box;
+      width: 185px;
+      bottom: 85%;
+      transform: rotate(10deg);
+
+      &:first-child {
+        transform: rotate(-10deg);
+      }
+      
+      img {
+        height: 100%;
+        width: auto;
+        left: 0;
+      }
+    }
+  }
+
+  h3 {
+    font-family: var(--font-anton);
+    color: var(--color-white);
+    font-size: 32rem;
+    line-height: 0.86;
+    margin: 0;
+    text-transform: uppercase;
+    text-indent: -0.9rem;
+  }
+}

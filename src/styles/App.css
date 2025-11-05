@@ -1,0 +1,48 @@
+@import "./_variables.css";
+
+header {
+  padding: 1rem 0;
+}
+
+header {
+  img {
+    cursor: pointer;
+    display: inline-block;
+    width: 100%;
+  }
+}
+
+header {
+  .profile {
+    mix-blend-mode: multiply;
+  }
+}
+
+.intro h1 {
+  color: var(--color-white);
+  font-size: 7.25rem;
+  font-style: normal;
+  font-weight: 100;
+  line-height: 1;
+  margin: 0;
+  margin-top: 100px;
+}
+
+.intro {
+  h2 {
+    font-size: 9.75rem;
+    font-style: normal;
+    font-weight: 100;
+    line-height: 1;
+    margin: 0;
+  }
+}
+
+.splash {
+  min-height: 100vh;
+}
+
+.my-2 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}

@@ -1,15 +1,20 @@
 import Header from './Header';
 import Intro from './Intro';
-import './styles/App.scss'
+import Marks from './Marks';
+import Work from './Work';
+import './styles/App.css';
 
 function App() {
-  
   return (
-    <section className="splash">
-      <Header />
-      <Intro />
-    </section>
-  )
+    <>
+      <section className="splash">
+        <Header />
+        <Intro />
+      </section>
+      <Marks />
+      <Work />
+    </>
+  );
 }
 
-export default App
+export default App;
