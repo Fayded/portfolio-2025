@@ -2,6 +2,7 @@ import Header from './Header';
 import Intro from './Intro';
 import Marks from './Marks';
 import Work from './Work';
+import Contact from './Contact';
 import './styles/App.css';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       </section>
       <Marks />
       <Work />
+      <Contact />
     </>
   );
 }

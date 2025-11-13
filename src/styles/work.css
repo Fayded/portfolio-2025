@@ -1,42 +1,62 @@
-@import "./_variables.css";
-@import "./_grid.css";
+@import './_variables.css';
+@import './_grid.css';
 
 .work {
-  .work-item {
-    margin-top: 15rem;
-    position: relative;
-    display: inline-flex;
-    
-    div {
-      position: absolute;
-      display: block;
-      height: 250px;
-      overflow: hidden;
-      border-radius: 12px;
-      clip-path: fill-box;
-      width: 185px;
-      bottom: 85%;
-      transform: rotate(10deg);
-
-      &:first-child {
-        transform: rotate(-10deg);
-      }
-      
-      img {
-        height: 100%;
-        width: auto;
-        left: 0;
-      }
-    }
-  }
-
   h3 {
-    font-family: var(--font-anton);
     color: var(--color-white);
+    font-family: var(--font-anton);
     font-size: 32rem;
-    line-height: 0.86;
+    line-height: 0.9;
     margin: 0;
     text-transform: uppercase;
     text-indent: -0.9rem;
+    position: relative;
+    top: 0;
+    left: 0;
+
+    &:nth-of-type(2) {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-clip: text;
+      color: transparent;
+      background-size: cover;
+      background-position: center 400%;
+      background-repeat: no-repeat;
+      z-index: 1;
+      clip-path: inset(-100% 0 0 0);
+      transition: background-position 0.6s ease-in-out,
+        background-position 0.6s ease-in-out;
+    }
+  }
+}
+
+.work-list--item {
+  margin-top: 15rem;
+  position: relative;
+  display: inline-flex;
+}
+
+.work-list--btn {
+  position: absolute;
+  display: block;
+  height: 250px;
+  overflow: hidden;
+  border-radius: 12px;
+  clip-path: fill-box;
+  width: 185px;
+  bottom: 85%;
+  transform: rotate(10deg);
+  cursor: pointer;
+  z-index: 2;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+
+  img {
+    height: 100%;
+    width: auto;
+    left: 0;
   }
 }

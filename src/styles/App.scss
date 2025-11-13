@@ -1,22 +1,14 @@
-@import './_variables.css';
-
-body {
-  overflow-x: hidden;
-}
+@use './variables' as vars;
 
 header {
   padding: 1rem 0;
-}
 
-header {
   img {
     cursor: pointer;
     display: inline-block;
     width: 100%;
   }
-}
 
-header {
   .profile {
     mix-blend-mode: multiply;
   }
@@ -25,6 +17,7 @@ header {
 .intro {
   h1 {
     font-family: var(--font-antonio);
+    color: var(--color-white);
     font-size: 11.25rem;
     font-style: normal;
     font-weight: 100;

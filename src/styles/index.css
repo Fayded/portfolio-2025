@@ -1,6 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Anton&family=Antonio:wght@100..700&display=swap");
-@import "./_variables.css";
-@import "./_grid.css";
+@import './_variables.css';
+@import './_grid.css';
 
 :root {
   font-family: var(--font-antonio);
@@ -16,6 +15,7 @@
 
 body {
   background: var(--color-primary);
+  color: var(--color-white);
   font-optical-sizing: auto;
   margin: 0;
   padding: 0 1rem;

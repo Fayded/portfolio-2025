@@ -15,9 +15,9 @@ function Marks() {
         <div className="col-10">
           <motion.div
             key={hawks}
-            initial={{ opacity: 0, scale: 0 }}
+            initial={{ opacity: 0, scale: 0.5 }}
             animate={
-              isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }
+              isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }
             }
             transition={{
               duration: 1.4,
@@ -32,9 +32,9 @@ function Marks() {
         <div className="col-8 col-start-14 col-end-22">
           <motion.div
             key={bruins}
-            initial={{ opacity: 0, scale: 0 }}
+            initial={{ opacity: 0, scale: 0.5 }}
             animate={
-              isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }
+              isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }
             }
             transition={{
               duration: 1.4,
@@ -51,9 +51,9 @@ function Marks() {
         <div className="col-8">
           <motion.div
             key={bruins}
-            initial={{ opacity: 0, scale: 0 }}
+            initial={{ opacity: 0, scale: 0.5 }}
             animate={
-              isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }
+              isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }
             }
             transition={{
               duration: 1.4,
@@ -68,9 +68,9 @@ function Marks() {
         <div className="col-10 col-start-14 col-end-24">
           <motion.div
             key={hawks}
-            initial={{ opacity: 0, scale: 0 }}
+            initial={{ opacity: 0, scale: 0.5 }}
             animate={
-              isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }
+              isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }
             }
             transition={{
               duration: 1.4,
@@ -87,9 +87,9 @@ function Marks() {
         <div className="col-10">
           <motion.div
             key={hawks}
-            initial={{ opacity: 0, scale: 0 }}
+            initial={{ opacity: 0, scale: 0.5 }}
             animate={
-              isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }
+              isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }
             }
             transition={{
               duration: 1.4,
@@ -104,9 +104,9 @@ function Marks() {
         <div className="col-8 col-start-14 col-end-22">
           <motion.div
             key={bruins}
-            initial={{ opacity: 0, scale: 0 }}
+            initial={{ opacity: 0, scale: 0.5 }}
             animate={
-              isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }
+              isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }
             }
             transition={{
               duration: 1.4,

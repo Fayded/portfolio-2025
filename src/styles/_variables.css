@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Antonio:wght@100..700&display=swap');
+
 :root {
   /* Fonts */
-  --font-antonio: "Antonio", "Anton", Avenir, sans-serif;
-  --font-anton: "Anton", "Antonio", Avenir, sans-serif;
+  --font-antonio: 'Antonio', 'Anton', Avenir, sans-serif;
+  --font-anton: 'Anton', 'Antonio', Avenir, sans-serif;
 
   /* Colors */
   --color-primary: #4b71d8;
