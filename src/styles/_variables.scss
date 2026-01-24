@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Antonio:wght@100..700&display=swap');
 
+@font-face {
+  font-family: 'Gotham';
+  src: url('../fonts/gotham-book.woff2') format('woff2'),
+    url('../fonts/gotham-book.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   /* Fonts */
   --font-antonio: 'Antonio', 'Anton', Avenir, sans-serif;

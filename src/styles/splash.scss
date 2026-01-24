@@ -1,0 +1,37 @@
+.splash {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  flex-direction: column;
+
+  h1 {
+    font-family: 'Gotham', Avenir, sans-serif;
+    font-size: 70px;
+    line-height: 1;
+  }
+
+  .char {
+    margin-left: 30px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  h2 {
+    font-size: 260px;
+    font-family: 'Anton', Avenir, sans-serif;
+    position: absolute;
+    color: #4164c2;
+    overflow: hidden;
+    line-height: 1;
+    display: flex;
+    align-items: flex-end; // Align to bottom so letters animate up into view
+    margin: 0;
+  }
+
+  .label-char {
+    display: inline-block;
+  }
+}

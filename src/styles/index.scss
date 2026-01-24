@@ -1,5 +1,5 @@
-@import './_variables.css';
-@import './_grid.css';
+@use './_variables';
+@use './_grid';
 
 :root {
   font-family: var(--font-antonio);
@@ -17,9 +17,6 @@ body {
   background: var(--color-primary);
   color: var(--color-white);
   font-optical-sizing: auto;
-  margin: 0;
-  padding: 0 1rem;
-  height: 2000px;
 }
 
 img {
@@ -32,4 +29,7 @@ h2 {
   font-weight: 100;
   font-size: 32px;
   letter-spacing: 4px;
+  &.secondary {
+    color: var(--color-yellow);
+  }
 }

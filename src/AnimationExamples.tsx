@@ -6,7 +6,7 @@ import {
   AnimatePresence,
 } from 'framer-motion';
 import { useRef, useState } from 'react';
-import './styles/App.css';
+import './styles/App.scss';
 
 function AnimationExamples() {
   const [isVisible, setIsVisible] = useState(true);

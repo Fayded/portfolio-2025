@@ -1,20 +1,18 @@
-import Header from './Header';
-import Intro from './Intro';
-import Marks from './Marks';
-import Work from './Work';
-import Contact from './Contact';
-import './styles/App.css';
+import Splash from './Splash';
+// import History from './History';
+// import Marks from './Marks';
+// import Work from './Work';
+// import Contact from './Contact';
+import './styles/App.scss';
 
 function App() {
   return (
     <>
-      <section className="splash">
-        <Header />
-        <Intro />
-      </section>
-      <Marks />
+      <Splash />
+      {/* <Marks />
       <Work />
       <Contact />
+      <History /> */}
     </>
   );
 }
