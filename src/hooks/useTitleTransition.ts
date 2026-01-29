@@ -42,19 +42,8 @@ export const useTitleAnimation = (
     const lastToRightQuarter =
       (window.innerWidth * 3) / 4 - lastCharRect.left - lastCharRect.width / 2;
 
-    const fourthToRightQuarter =
-      (window.innerWidth * 3) / 4 -
-      fourthCharRect.left -
-      fourthCharRect.width / 2;
-
-    const secondToLeftQuarter =
-      window.innerWidth / 4 - secondCharRect.left - secondCharRect.width / 2;
-
     const thirdToRight = window.innerWidth - thirdCharRect.right - 20;
     const thirdToTop = -(thirdCharRect.top - 20);
-
-    const lastToTop = -(lastCharRect.top - 20);
-    const fourthToTop = -(fourthCharRect.top - 20);
 
     // Animate first character: far left, then top left
     const tl1 = gsap
@@ -92,7 +81,7 @@ export const useTitleAnimation = (
     // After first animation completes, animate second, third and fourth characters
     tl1.then(() => {
       // Animate second character (A): to center, then up
-      gsap
+      const tl2 = gsap
         .timeline()
         .to(secondChar, {
           x: secondToCenter,
@@ -120,7 +109,7 @@ export const useTitleAnimation = (
         });
 
       // Animate fourth character (C): down, then to 1/4 position
-      const tl4 = gsap
+      gsap
         .timeline()
         .to(fourthChar, {
           y: fourthToBottom,
@@ -133,47 +122,85 @@ export const useTitleAnimation = (
           ease: 'power2.inOut',
         });
 
-      // After all animations complete, wait 2 seconds then rearrange
-      tl4.then(() => {
+      // After 10 seconds, reverse all animations back along same path
+      tl2.then(() => {
         setTimeout(() => {
-          // Animate O: right, then up (stays on the right)
-          gsap
+          // Reverse A first: center top -> center center
+          const tlARev = gsap
             .timeline()
-            .to(lastChar, {
-              x: lastToRight,
-              duration: 0.7,
+            .to(secondChar, {
+              y: 0,
+              duration: 0.4,
               ease: 'power2.inOut',
             })
-            .to(lastChar, {
-              y: lastToTop,
-              duration: 0.7,
+            .to(secondChar, {
+              x: 0,
+              duration: 0.4,
               ease: 'power2.inOut',
             });
 
-          // Animate C: to 3/4 position, then up to top (same time as O)
+          // Reverse Y: far right top -> center top -> center
           gsap
             .timeline()
-            .to(fourthChar, {
-              x: fourthToRightQuarter,
-              duration: 0.7,
+            .to(thirdChar, {
+              x: 0,
+              duration: 0.4,
               ease: 'power2.inOut',
             })
-            .to(fourthChar, {
-              y: fourthToTop,
-              duration: 0.7,
+            .to(thirdChar, {
+              y: 0,
+              duration: 0.4,
               ease: 'power2.inOut',
             });
 
-          // Animate A and Y at the same time
-          gsap.to(secondChar, {
-            x: secondToLeftQuarter,
-            duration: 0.7,
-            ease: 'power2.inOut',
-          });
-          gsap.to(thirdChar, {
-            x: 0,
-            duration: 0.7,
-            ease: 'power2.inOut',
+          // Reverse C: 1/4 bottom -> center bottom -> center
+          gsap
+            .timeline()
+            .to(fourthChar, {
+              x: 0,
+              duration: 0.4,
+              ease: 'power2.inOut',
+            })
+            .to(fourthChar, {
+              y: 0,
+              duration: 0.4,
+              ease: 'power2.inOut',
+            });
+
+          // After A, Y, C finish, reverse F and O last
+          tlARev.then(() => {
+            // Reverse F: top left -> center top -> center center
+            gsap
+              .timeline()
+              .to(firstChar, {
+                y: 0,
+                duration: 0.4,
+                ease: 'power2.inOut',
+              })
+              .to(firstChar, {
+                x: 0,
+                duration: 0.4,
+                ease: 'power2.inOut',
+              });
+
+            // Reverse O: 3/4 bottom -> far right bottom -> far right center -> center
+            gsap
+              .timeline()
+              .to(lastChar, {
+                x: lastToRight,
+                duration: 0.4,
+                ease: 'power2.inOut',
+              })
+              .to(lastChar, {
+                y: 0,
+                duration: 0.4,
+                ease: 'power2.inOut',
+              })
+              .to(lastChar, {
+                x: 0,
+                duration: 0.4,
+                ease: 'power2.inOut',
+              });
           });
         }, 2000);
       });
