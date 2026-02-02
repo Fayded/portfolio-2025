@@ -1,7 +1,8 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
-import mercedes from './assets/mercedes.jpg';
+import { useRef, useState } from 'react';
 import './styles/work.scss';
+
+import mercedes from './assets/mercedes.jpg';
 import mercedes2 from './assets/mercedes-vans-2.jpg';
 
 const brands = [
@@ -80,40 +81,75 @@ function Work() {
 
 function BrandSection({ brand }: { brand: (typeof brands)[0] }) {
   const ref = useRef(null);
+  const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
   const isInView = useInView(ref, {
     once: false,
-    amount: 0.5,
-    margin: '0px 0px -20% 0px',
+    amount: 0.8,
   });
 
+  const handleImageClick = (imageSrc: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    setBackgroundImage(imageSrc);
+
+    // Scroll the brand section to the top of the viewport
+    if (ref.current) {
+      (ref.current as HTMLElement).scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  };
+
   return (
-    <div className="work-list--brand" ref={ref}>
+    <div
+      className="work-list--brand"
+      ref={ref}
+      style={{
+        backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        transition: 'background-image 2s cubic-bezier(0.4, 0, 0.2, 1)',
+      }}
+    >
       <h3>{brand.name}</h3>
-      <h3>{brand.name}</h3>
+      <h3
+        style={{
+          opacity: backgroundImage ? 0 : 1,
+          transition: 'opacity 1s ease-in-out',
+        }}
+      >
+        {brand.name}
+      </h3>
       {brand.images.map((image, index) => (
         <motion.a
           href="#"
           className="work-list--item"
           key={index}
+          onClick={(e) => handleImageClick(image.src, e)}
           initial={{
-            left: index === 0 ? '5%' : 'auto',
-            right: index === 0 ? 'auto' : '5%',
+            left: index === 0 ? '7%' : 'auto',
+            right: index === 0 ? 'auto' : '7%',
           }}
           animate={
-            isInView
+            backgroundImage
+              ? {
+                  left: index === 0 ? '-20%' : 'auto',
+                  right: index === 0 ? 'auto' : '-20%',
+                }
+              : isInView
               ? {
                   left: index === 0 ? '10%' : 'auto',
                   right: index === 0 ? 'auto' : '10%',
                 }
               : {
-                  left: index === 0 ? '5%' : 'auto',
-                  right: index === 0 ? 'auto' : '5%',
+                  left: index === 0 ? '7%' : 'auto',
+                  right: index === 0 ? 'auto' : '7%',
                 }
           }
           transition={{
-            duration: 0.8,
+            duration: backgroundImage ? 1.0 : 0.8,
             ease: [0.25, 0.1, 0.25, 1],
-            delay: index * 0.1,
+            delay: backgroundImage ? 0 : index * 0.1,
           }}
         >
           <img src={image.src} alt={image.alt} />
