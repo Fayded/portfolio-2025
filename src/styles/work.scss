@@ -2,8 +2,6 @@
 @use './_grid';
 
 .work {
-<<<<<<< Updated upstream
-=======
   h2 {
     color: var(--color-white);
     display: flex;
@@ -12,45 +10,29 @@
     justify-content: space-between;
     line-height: 1;
     width: 96vw;
-    margin: 20px auto;
+    margin: 0 auto;
   }
->>>>>>> Stashed changes
   h3 {
+    align-items: center;
     color: var(--color-white);
+    display: flex;
     font-family: var(--font-anton);
-    font-size: 32rem;
-    line-height: 0.9;
+    font-size: 21rem;
+    height: 100vh;
+    justify-content: center;
+    line-height: 1;
+    letter-spacing: 20px;
     margin: 0;
+    position: absolute;
+    text-align: center;
     text-transform: uppercase;
-    text-indent: -0.9rem;
-    position: relative;
-    top: 0;
-    left: 0;
-    cursor: pointer;
+    width: 100%;
+    pointer-events: none;
 
-<<<<<<< Updated upstream
-    &:nth-of-type(2) {
-      position: absolute;
-      top: 0;
-      left: 0;
-      background-clip: text;
-      color: transparent;
-      background-size: cover;
-      background-position: center 400%;
-      background-repeat: no-repeat;
-      z-index: 1;
-      clip-path: inset(-100% 0 0 0);
-      transition: background-position 0.6s ease-in-out,
-        background-position 0.6s ease-in-out;
-=======
-    &:nth-child(2) {
-      z-index: 6;
+    &:nth-child(1) {
+      z-index: 2;
       color: transparent;
       -webkit-text-stroke: 2px var(--color-white);
-    }
-
-    &:nth-child(3) {
-      z-index: 1;
     }
   }
   &-list {
@@ -64,56 +46,28 @@
       display: block;
       width: 17rem;
       height: 40rem;
+      overflow: hidden;
       position: absolute;
+      text-align: center;
       top: 50%;
-      cursor: pointer;
-
-      &:first-child {
-        transform: translateY(-50%) rotate(10deg);
-      }
+      transform: translateY(-50%) rotate(-10deg);
+      z-index: 1;
 
       &:last-child {
-        transform: translateY(-50%) rotate(-10deg);
+        transform: translateY(-50%) rotate(10deg);
       }
 
       img {
         display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
+        height: auto;
+        left: 50%;
+        max-height: 100%;
+        object-fit: contain;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: auto;
       }
->>>>>>> Stashed changes
     }
-  }
-}
-
-.work-list--item {
-  margin-top: 15rem;
-  position: relative;
-  display: inline-flex;
-}
-
-.work-list--btn {
-  position: absolute;
-  display: block;
-  height: 250px;
-  overflow: hidden;
-  border-radius: 12px;
-  clip-path: fill-box;
-  width: 185px;
-  bottom: 85%;
-  transform: rotate(10deg);
-  cursor: pointer;
-  z-index: 2;
-
-  &:hover {
-    transform: scale(1.2);
-  }
-
-  img {
-    height: 100%;
-    width: auto;
-    left: 0;
   }
 }
