@@ -8,6 +8,13 @@
   font-style: normal;
 }
 
+// Breakpoints (mobile-first)
+$bp-sm: 576px;
+$bp-md: 768px;
+$bp-lg: 992px;
+$bp-xl: 1200px;
+$bp-xxl: 1400px;
+
 :root {
   /* Fonts */
   --font-antonio: 'Antonio', 'Anton', Avenir, sans-serif;

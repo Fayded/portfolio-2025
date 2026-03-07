@@ -1,25 +1,58 @@
-@use './variables' as vars;
+@use './variables' as *;
 
 .intro {
+  padding: 0 1rem;
+
+  @media (min-width: $bp-md) {
+    padding: 0;
+  }
+
   h2 {
     font-family: var(--font-antonio);
     color: var(--color-white);
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 100;
+    line-height: 1;
+    margin: 0;
+    margin-top: 2rem;
+
+    @media (min-width: $bp-md) {
+      font-size: 2.5rem;
+      margin-top: 4rem;
+    }
+
+    @media (min-width: $bp-lg) {
+      font-size: 4rem;
+      margin-top: 100px;
+    }
+  }
+
+  h3 {
+    font-family: var(--font-anton);
     font-size: 4rem;
     font-style: normal;
     font-weight: 100;
     line-height: 1;
     margin: 0;
-    margin-top: 100px;
+
+    @media (min-width: $bp-sm) {
+      font-size: 6rem;
+    }
+
+    @media (min-width: $bp-md) {
+      font-size: 10rem;
+    }
+
+    @media (min-width: $bp-lg) {
+      font-size: 14rem;
+    }
+
+    @media (min-width: $bp-xl) {
+      font-size: 18.75rem;
+    }
   }
 
-  h3 {
-    font-family: var(--font-anton);
-    font-size: 18.75rem;
-    font-style: normal;
-    font-weight: 100;
-    line-height: 1;
-    margin: 0;
-  }
   h4 {
     margin: 0;
     justify-self: flex-end;
@@ -27,6 +60,11 @@
 }
 
 .my-2 {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+  @media (min-width: $bp-md) {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
 }

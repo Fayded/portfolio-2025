@@ -2,16 +2,23 @@ import { AnimatePresence, motion, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import './styles/work.scss';
 
-import mercedes from './assets/mercedes.jpg';
+import mercedesEmblem from './assets/mercedes-emblem.jpg';
 import mercedesG from './assets/mercedes-g.jpg';
 import mercedesWoods from './assets/mercedes-g-woods.jpg';
+import mercedesOldCars from './assets/mercedes-old-cars.jpg';
 import mercedesGrill from './assets/mercedes-grill.jpg';
 import carmaxOldCars from './assets/carmax-old-cars.jpg';
 import carmaxParkingLot from './assets/carmax-parking.jpg';
 import porscheBehind from './assets/porsche-behind.jpg';
 import porscheRim from './assets/porsche-rim.jpg';
+import porscheWheel from './assets/porsche-steering-wheel.jpg';
 
-type AnimationStage = 'idle' | 'centering' | 'expanding' | 'contracting' | 'returning';
+type AnimationStage =
+  | 'idle'
+  | 'centering'
+  | 'expanding'
+  | 'contracting'
+  | 'returning';
 
 interface BrandImage {
   src: string;
@@ -29,12 +36,14 @@ const brands: Brand[] = [
     name: 'mercedes',
     images: [
       { src: mercedesG, alt: 'Mercedes Vans' },
-      { src: mercedes, alt: 'Mercedes Vans' },
+      { src: mercedesGrill, alt: 'Mercedes Vans' },
     ],
     slideShow: [
       { src: mercedesG, alt: 'Mercedes Vans' },
-      { src: mercedesWoods, alt: 'Mercedes Vans' },
-      { src: mercedesGrill, alt: 'Mercedes Vans' },
+      { src: mercedesWoods, alt: 'Mercedes in the woods' },
+      { src: mercedesGrill, alt: 'Mercedes Grill' },
+      { src: mercedesEmblem, alt: 'Mercedes Emble,' },
+      { src: mercedesOldCars, alt: 'Mercedes Old' },
     ],
   },
   {
@@ -44,9 +53,9 @@ const brands: Brand[] = [
       { src: porscheRim, alt: 'Porsche' },
     ],
     slideShow: [
-      { src: mercedesG, alt: 'Mercedes Vans' },
-      { src: mercedesWoods, alt: 'Mercedes Vans' },
-      { src: mercedesGrill, alt: 'Mercedes Vans' },
+      { src: porscheBehind, alt: 'Porsche' },
+      { src: porscheRim, alt: 'Porsche' },
+      { src: porscheWheel, alt: 'Porsche' },
     ],
   },
   {
@@ -56,9 +65,8 @@ const brands: Brand[] = [
       { src: carmaxParkingLot, alt: 'CarMax' },
     ],
     slideShow: [
-      { src: mercedesG, alt: 'Mercedes Vans' },
-      { src: mercedesWoods, alt: 'Mercedes Vans' },
-      { src: mercedesGrill, alt: 'Mercedes Vans' },
+      { src: carmaxOldCars, alt: 'CarMax' },
+      { src: carmaxParkingLot, alt: 'CarMax' },
     ],
   },
 ];
@@ -119,10 +127,23 @@ function BrandSection({ brand }: { brand: Brand }) {
   const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
   const [backgroundIndex, setBackgroundIndex] = useState<number | null>(null);
   const [closingMaskImage, setClosingMaskImage] = useState<string | null>(null);
+  const [isLargeViewport, setIsLargeViewport] = useState(
+    typeof window !== 'undefined' ? window.innerWidth >= 1024 : false
+  );
   const isInView = useInView(ref, { once: false, amount: 0.8 });
 
+  const itemWidth = isLargeViewport ? '17rem' : '8rem';
+  const itemHeight = isLargeViewport ? '40rem' : '20rem';
+
+  useEffect(() => {
+    const handleResize = () => setIsLargeViewport(window.innerWidth >= 1024);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const isSelected = (index: number) => selectedIndex === index;
-  const hasBackground = (index: number) => backgroundImage && backgroundIndex === index;
+  const hasBackground = (index: number) =>
+    backgroundImage && backgroundIndex === index;
 
   useEffect(() => {
     if (selectedIndex === null || !ref.current) {
@@ -140,7 +161,10 @@ function BrandSection({ brand }: { brand: Brand }) {
     window.scrollTo({ top: elementTop, behavior: 'smooth' });
 
     setAnimationStage('centering');
-    const timerId = setTimeout(() => setAnimationStage('expanding'), TIMING.centeringDuration);
+    const timerId = setTimeout(
+      () => setAnimationStage('expanding'),
+      TIMING.centeringDuration
+    );
     return () => clearTimeout(timerId);
   }, [selectedIndex]);
 
@@ -148,8 +172,12 @@ function BrandSection({ brand }: { brand: Brand }) {
     if (animationStage !== 'expanding' || selectedIndex === null) return;
 
     const slideShowImages = brand.slideShow;
-    const initialMaskDelay = Math.max(0, TIMING.initialMaskDelayAfterClick - TIMING.centeringDuration);
-    const backgroundSwapDelay = TIMING.maskTransitionDuration + TIMING.backgroundDelayAfterMaskTransition;
+    const initialMaskDelay = Math.max(
+      0,
+      TIMING.initialMaskDelayAfterClick - TIMING.centeringDuration
+    );
+    const backgroundSwapDelay =
+      TIMING.maskTransitionDuration + TIMING.backgroundDelayAfterMaskTransition;
     const timeoutIds: number[] = [];
 
     const queueTimeout = (callback: () => void, delay: number) => {
@@ -166,7 +194,10 @@ function BrandSection({ brand }: { brand: Brand }) {
 
           queueTimeout(() => {
             setIsMasking(false);
-            runSlideshow(TIMING.loopMaskDelay, (slideIndex + 1) % slideShowImages.length);
+            runSlideshow(
+              TIMING.loopMaskDelay,
+              (slideIndex + 1) % slideShowImages.length
+            );
           }, TIMING.backgroundTransitionDuration);
         }, backgroundSwapDelay);
       }, maskDelay);
@@ -203,7 +234,14 @@ function BrandSection({ brand }: { brand: Brand }) {
     };
 
     if (isSelected(index)) {
-      const centered = { left: '50%', top: '50%', x: '-50%', y: '-50%', rotate: 0, zIndex: 5 };
+      const centered = {
+        left: '50%',
+        top: '50%',
+        x: '-50%',
+        y: '-50%',
+        rotate: 0,
+        zIndex: 5,
+      };
 
       switch (animationStage) {
         case 'centering':
@@ -211,24 +249,38 @@ function BrandSection({ brand }: { brand: Brand }) {
         case 'expanding':
           return { ...centered, width: '100vw', height: '100vh' };
         case 'contracting':
-          return { ...centered, width: '17rem', height: '40rem' };
+          return { ...centered, width: itemWidth, height: itemHeight };
         case 'returning':
-          return { ...basePosition, top: '50%', x: 0, width: '17rem', height: '40rem', opacity: 1, scale: 1 };
+          return {
+            ...basePosition,
+            top: '50%',
+            x: 0,
+            width: itemWidth,
+            height: itemHeight,
+            opacity: 1,
+            scale: 1,
+          };
       }
     }
 
     if (selectedIndex !== null) {
-      return { opacity: 0, scale: 0.8, y: '-50%', rotate: baseRotation, zIndex: 1 };
+      return {
+        opacity: 0,
+        scale: 0.8,
+        y: '-50%',
+        rotate: baseRotation,
+        zIndex: 1,
+      };
     }
 
     return {
       ...basePosition,
       opacity: 1,
       scale: 1,
-      width: '17rem',
-      height: '40rem',
+      width: itemWidth,
+      height: itemHeight,
       left: isLeft ? (isInView ? '10%' : '7%') : 'auto',
-      right: isLeft ? 'auto' : (isInView ? '10%' : '7%'),
+      right: isLeft ? 'auto' : isInView ? '10%' : '7%',
     };
   };
 
@@ -272,7 +324,9 @@ function BrandSection({ brand }: { brand: Brand }) {
             className="work-list--item"
             onClick={(e) => handleImageClick(index, e)}
             style={{
-              backgroundImage: hasBackground(index) ? `url(${backgroundImage})` : undefined,
+              backgroundImage: hasBackground(index)
+                ? `url(${backgroundImage})`
+                : undefined,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}
@@ -283,13 +337,23 @@ function BrandSection({ brand }: { brand: Brand }) {
               ease: [0.4, 0, 0.2, 1],
               delay: selectedIndex !== null ? 0 : index * 0.1,
             }}
-            whileHover={selectedIndex === null ? { scale: 1.05, transition: { duration: 0.3 } } : {}}
+            whileHover={
+              selectedIndex === null
+                ? { scale: 1.05, transition: { duration: 0.3 } }
+                : {}
+            }
           >
             <motion.img
               src={image.src}
               alt={image.alt}
               animate={{ opacity: hasBackground(index) ? 0 : 1 }}
-              transition={{ duration: animationStage === 'contracting' || animationStage === 'returning' ? 0.3 : 1 }}
+              transition={{
+                duration:
+                  animationStage === 'contracting' ||
+                  animationStage === 'returning'
+                    ? 0.3
+                    : 1,
+              }}
             />
           </motion.a>
           <h3>{brand.name}</h3>

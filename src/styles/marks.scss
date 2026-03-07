@@ -1,34 +1,86 @@
-@use './_variables';
+@use './_variables' as *;
 @use './_grid';
 
 .work {
   min-height: 100vh;
+  padding: 0 1rem;
+
+  @media (min-width: $bp-md) {
+    padding: 0;
+  }
 }
 
 .work h3 {
   font-family: var(--font-anton);
   color: var(--color-white);
-  font-size: 23rem;
+  font-size: 6rem;
   line-height: 1;
   margin: 0;
   text-transform: uppercase;
-  text-indent: -0.9rem;
+  text-indent: -0.3rem;
+
+  @media (min-width: $bp-sm) {
+    font-size: 6rem;
+    text-indent: -0.4rem;
+  }
+
+  @media (min-width: $bp-md) {
+    font-size: 10rem;
+    text-indent: -0.5rem;
+  }
+
+  @media (min-width: $bp-lg) {
+    font-size: 16rem;
+    text-indent: -0.7rem;
+  }
+
+  @media (min-width: $bp-xl) {
+    font-size: 23rem;
+    text-indent: -0.9rem;
+  }
 }
 
 .marks {
   &-selected {
     background: white;
+
     .marks-item {
       display: block;
-      padding: 1  2rem 0;
+      padding: 1rem 1rem 0;
+
+      @media (min-width: $bp-md) {
+        padding: 1rem 2rem 0;
+      }
     }
   }
+
   &-item {
     cursor: pointer;
-    padding: 0 40px;
+    padding: 0 1rem;
     text-align: center;
+
+    @media (min-width: $bp-md) {
+      padding: 0 2rem;
+    }
+
+    @media (min-width: $bp-lg) {
+      padding: 0 40px;
+    }
   }
+
   &-image {
-    max-height: 210px;
+    max-height: 100px;
+
+    @media (min-width: $bp-sm) {
+      max-height: 140px;
+    }
+
+    @media (min-width: $bp-md) {
+      max-height: 180px;
+    }
+
+    @media (min-width: $bp-lg) {
+      max-height: 210px;
+    }
   }
 }

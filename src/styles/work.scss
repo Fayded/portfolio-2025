@@ -1,23 +1,31 @@
-@use './_variables';
+@use './_variables' as *;
 @use './_grid';
 
 .brand-close-button {
   position: absolute;
-  top: 2rem;
-  right: 2rem;
+  top: 1rem;
+  right: 1rem;
   z-index: 10;
   background: transparent;
   border: 2px solid var(--color-white);
   color: var(--color-white);
-  width: 3rem;
-  height: 3rem;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 50%;
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
+
+  @media (min-width: $bp-md) {
+    top: 2rem;
+    right: 2rem;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+  }
 }
 
 .brand-mask-text {
@@ -36,12 +44,27 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 21rem;
+  font-size: 4rem;
   font-family: var(--font-anton);
   text-transform: uppercase;
-  letter-spacing: 20px;
+  letter-spacing: 5px;
   margin: 0;
   line-height: 1;
+
+  @media (min-width: $bp-md) {
+    font-size: 10rem;
+    letter-spacing: 12px;
+  }
+
+  @media (min-width: $bp-lg) {
+    font-size: 15rem;
+    letter-spacing: 16px;
+  }
+
+  @media (min-width: $bp-xl) {
+    font-size: 21rem;
+    letter-spacing: 20px;
+  }
 }
 
 .work {
@@ -49,22 +72,34 @@
     color: var(--color-white);
     display: flex;
     font-family: 'Gotham', Avenir, sans-serif;
-    font-size: 24px;
+    font-size: 0.875rem;
     justify-content: space-between;
     line-height: 1;
-    width: 96vw;
+    width: 94vw;
     margin: 0 auto;
+    padding: 0 1rem;
+
+    @media (min-width: $bp-md) {
+      font-size: 1.125rem;
+      width: 96vw;
+      padding: 0;
+    }
+
+    @media (min-width: $bp-lg) {
+      font-size: 1.5rem;
+    }
   }
+
   h3 {
     align-items: center;
     color: var(--color-white);
     display: flex;
     font-family: var(--font-anton);
-    font-size: 21rem;
+    font-size: 5rem;
     height: 100vh;
     justify-content: center;
     line-height: 1;
-    letter-spacing: 20px;
+    letter-spacing: 8px;
     margin: 0;
     position: absolute;
     text-align: center;
@@ -72,12 +107,37 @@
     width: 100%;
     pointer-events: none;
 
+    @media (min-width: $bp-sm) {
+      font-size: 6rem;
+      letter-spacing: 8px;
+    }
+
+    @media (min-width: $bp-md) {
+      font-size: 10rem;
+      letter-spacing: 12px;
+    }
+
+    @media (min-width: $bp-lg) {
+      font-size: 15rem;
+      letter-spacing: 16px;
+    }
+
+    @media (min-width: $bp-xl) {
+      font-size: 21rem;
+      letter-spacing: 20px;
+    }
+
     &:last-child {
       z-index: 10;
       color: transparent;
-      -webkit-text-stroke: 2px var(--color-white);
+      -webkit-text-stroke: 1px var(--color-white);
+
+      @media (min-width: $bp-md) {
+        -webkit-text-stroke: 2px var(--color-white);
+      }
     }
   }
+
   &-list {
     &--brand {
       height: 100vh;
@@ -87,14 +147,19 @@
 
     &--item {
       display: block;
-      width: 17rem;
-      height: 40rem;
+      width: 10rem;
+      height: 20rem;
       overflow: hidden;
       position: absolute;
       text-align: center;
       top: 50%;
       transform: translateY(-50%) rotate(-10deg);
       z-index: 1;
+
+      @media (min-width: 1024px) {
+        width: 17rem;
+        height: 40rem;
+      }
 
       &:last-child {
         transform: translateY(-50%) rotate(10deg);

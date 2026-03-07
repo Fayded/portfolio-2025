@@ -1,3 +1,5 @@
+@use './variables' as *;
+
 .splash {
   display: flex;
   align-items: center;
@@ -7,12 +9,32 @@
 
   h1 {
     font-family: 'Gotham', Avenir, sans-serif;
-    font-size: 70px;
+    font-size: 1.75rem;
     line-height: 1;
+
+    @media (min-width: $bp-sm) {
+      font-size: 2.5rem;
+    }
+
+    @media (min-width: $bp-md) {
+      font-size: 3.5rem;
+    }
+
+    @media (min-width: $bp-lg) {
+      font-size: 70px;
+    }
   }
 
   .char {
-    margin-left: 30px;
+    margin-left: 10px;
+
+    @media (min-width: $bp-md) {
+      margin-left: 20px;
+    }
+
+    @media (min-width: $bp-lg) {
+      margin-left: 30px;
+    }
 
     &:first-child {
       margin-left: 0;
@@ -20,15 +42,31 @@
   }
 
   h2 {
-    font-size: 260px;
+    font-size: 5rem;
     font-family: 'Anton', Avenir, sans-serif;
     position: absolute;
     color: #4164c2;
     overflow: hidden;
     line-height: 1;
     display: flex;
-    align-items: flex-end; // Align to bottom so letters animate up into view
+    align-items: flex-end;
     margin: 0;
+
+    @media (min-width: $bp-sm) {
+      font-size: 8rem;
+    }
+
+    @media (min-width: $bp-md) {
+      font-size: 12rem;
+    }
+
+    @media (min-width: $bp-lg) {
+      font-size: 16rem;
+    }
+
+    @media (min-width: $bp-xl) {
+      font-size: 260px;
+    }
   }
 
   .label-char {
