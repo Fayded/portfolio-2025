@@ -1,287 +1,182 @@
 @use './_variables' as *;
 
-.contact-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 2rem;
-
-  @media (min-width: $bp-lg) {
-    flex-direction: row;
+.footer {
+  > div:first-child {
     align-items: center;
-    gap: 0;
   }
 }
-
 .contact {
   font-family: var(--font-antonio);
-  font-size: 1rem;
   font-weight: 100;
-  margin-top: 3rem;
-  padding: 0 1rem 3rem;
+  background-color: var(--color-dark);
+  padding: 2rem 1rem 2rem;
 
   @media (min-width: $bp-md) {
-    font-size: 1.5rem;
-    margin-top: 6rem;
-    padding: 0 0 50px;
+    padding: 3rem 2rem 3rem;
   }
 
   @media (min-width: $bp-lg) {
-    font-size: 2rem;
-    margin-top: 10rem;
-    padding-bottom: 100px;
-  }
-}
-
-.email {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-decoration: none;
-
-  @media (min-width: $bp-md) {
-    flex-direction: row;
-    align-items: center;
-  }
-
-  > span:first-of-type {
-    line-height: 0.9;
-    font-family: var(--font-anton);
-    font-size: 4rem;
-    color: var(--color-white);
-    text-decoration: none;
-    font-weight: 700;
-    letter-spacing: 5px;
-    text-indent: -0.3rem;
-
-    @media (min-width: $bp-sm) {
-      font-size: 6rem;
-      letter-spacing: 8px;
-      text-indent: -0.4rem;
-    }
-
-    @media (min-width: $bp-md) {
-      font-size: 10rem;
-      letter-spacing: 12px;
-      text-indent: -0.5rem;
-    }
-
-    @media (min-width: $bp-lg) {
-      font-size: 16rem;
-      letter-spacing: 16px;
-      text-indent: -0.7rem;
-    }
-
-    @media (min-width: $bp-xl) {
-      font-size: 25rem;
-      letter-spacing: 20px;
-      text-indent: -0.9rem;
-    }
-  }
-
-  &-domain {
-    display: block;
-    font-family: var(--font-antonio);
-    font-size: 1.5rem;
-    font-weight: 100;
-    letter-spacing: 15px;
-    text-indent: -2px;
-
-    @media (min-width: $bp-sm) {
-      font-size: 2rem;
-      letter-spacing: 25px;
-    }
-
-    @media (min-width: $bp-md) {
-      font-size: 2.5rem;
-      letter-spacing: 40px;
-    }
-
-    @media (min-width: $bp-lg) {
-      font-size: 3.5rem;
-      letter-spacing: 55px;
-      text-indent: -3px;
-    }
-
-    @media (min-width: $bp-xl) {
-      font-size: 4rem;
-      letter-spacing: 68px;
-      text-indent: -4px;
-    }
-  }
-
-  img {
-    margin-top: 2rem;
-    width: 8rem;
-
-    @media (min-width: $bp-md) {
-      margin-left: 4rem;
-      margin-top: 0;
-      width: 12rem;
-    }
-
-    @media (min-width: $bp-lg) {
-      margin-left: 6rem;
-      width: 15rem;
-    }
-
-    @media (min-width: $bp-xl) {
-      margin-left: 8.5rem;
-      width: 18rem;
-    }
-  }
-}
-
-.hire {
-  font-weight: 700;
-
-  a {
-    background-color: transparent;
-    color: var(--color-white);
-    display: flex;
-    white-space: nowrap;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 0.875rem;
-    font-weight: 400;
-    letter-spacing: 4px;
-    padding: 12px 24px;
-    border: 2px solid var(--color-white);
-
-    @media (min-width: $bp-md) {
-      font-size: 1.125rem;
-      letter-spacing: 6px;
-      padding: 16px 32px;
-    }
-
-    @media (min-width: $bp-lg) {
-      font-size: 1.5rem;
-      letter-spacing: 8px;
-      padding: 20px 40px;
-    }
-
-    &:hover {
-      background-color: var(--color-white);
-      color: var(--color-primary);
-    }
-  }
-}
-
-.contact-header {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 3rem;
-  gap: 1.5rem;
-
-  @media (min-width: $bp-md) {
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 6rem;
-    gap: 0;
-  }
-
-  @media (min-width: $bp-lg) {
-    margin-bottom: 9rem;
-  }
-
-  h2 {
-    margin: 0;
-  }
-}
-
-.socials {
-  a {
-    color: var(--color-white);
-    font-family: var(--font-antonio);
-    font-size: 0.75rem;
-    text-decoration: none;
-    margin-right: 1rem;
-    font-weight: 100;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-
-    @media (min-width: $bp-md) {
-      font-size: 0.875rem;
-      margin-right: 1.5rem;
-      letter-spacing: 5px;
-    }
-
-    @media (min-width: $bp-lg) {
-      font-size: 1rem;
-      margin-right: 2rem;
-      letter-spacing: 6px;
-    }
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-}
-
-.smaller {
-  display: block;
-  font-size: 0.875rem;
-  letter-spacing: 3px;
-  margin-top: 0.5rem;
-  margin-bottom: 0;
-
-  @media (min-width: $bp-md) {
-    font-size: 1rem;
-    letter-spacing: 4px;
-    margin-top: 0.75rem;
-  }
-
-  @media (min-width: $bp-lg) {
-    font-size: 1.3125rem;
-    letter-spacing: 5px;
-    margin-top: 1rem;
+    padding: 4rem 3rem 4rem;
   }
 }
 
 .location {
-  font-family: var(--font-antonio);
-  font-size: 1.5rem;
-  font-weight: 100;
-  letter-spacing: 8px;
-  margin-top: 2rem;
-  line-height: 1.5;
-  text-transform: uppercase;
-
-  @media (min-width: $bp-md) {
-    font-size: 2rem;
-    letter-spacing: 12px;
-    margin-top: 3rem;
-  }
-
-  @media (min-width: $bp-lg) {
-    font-size: 3rem;
-    letter-spacing: 20px;
-    margin-top: 4rem;
-  }
+  grid-column: 2 / span 18;
 
   p {
-    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-gotham);
+    font-size: 1.2rem;
+    letter-spacing: 204%;
+    line-height: 1;
+    text-transform: uppercase;
+  }
 
-    &:nth-of-type(2) {
-      letter-spacing: 12px;
-      font-size: 0.875rem;
-      text-indent: 2px;
+  span {
+    &:first-child {
+      letter-spacing: 330%;
+    }
+    &:last-child {
+      letter-spacing: 330%;
+    }
+  }
 
-      @media (min-width: $bp-md) {
-        letter-spacing: 20px;
-        font-size: 1rem;
-      }
+  p:first-child {
+    font-size: 2rem;
+    letter-spacing: 99%;
+  }
+}
 
-      @media (min-width: $bp-lg) {
-        letter-spacing: 30px;
-        font-size: 1.5rem;
-        text-indent: 3px;
-      }
+.flag {
+  grid-column: 21 / span 3;
+  width: 100%;
+}
+
+h2 {
+  font-family: var(--font-gotham-bold);
+  font-size: 20.75rem;
+  line-height: 1;
+  color: var(--color-white);
+  letter-spacing: 11%;
+  margin: 0;
+}
+
+.contact-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: flex-start;
+
+  @media (min-width: $bp-md) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0;
+  }
+}
+
+.name {
+  grid-column: 2 / span 22;
+  margin-left: -0.05em;
+}
+
+.email {
+  grid-column: 2 / span 11;
+  font-family: var(--font-gotham);
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-white);
+  letter-spacing: 18%;
+}
+
+.website {
+  grid-column: 13 / span 11;
+  font-family: var(--font-gotham);
+  font-size: 2rem;
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  letter-spacing: 12%;
+}
+
+.country-code {
+  grid-column: 2 / span 11;
+  font-family: var(--font-gotham);
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-white);
+  letter-spacing: 4%;
+}
+
+.phone {
+  grid-column: 13 / span 11;
+  font-family: var(--font-gotham);
+  font-size: 2rem;
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  letter-spacing: 4%;
+}
+
+.socials {
+  grid-column: 2 / span 18;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-antonio);
+  font-size: 1.5rem;
+
+  a {
+    color: var(--color-white);
+    font-family: var(--font-antonio);
+    text-decoration: none;
+    font-weight: 100;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    transition: all 0.2s ease;
+    padding: 1.5rem 3.125rem;
+
+    &:hover {
+      background-color: var(--color-white);
+      color: var(--color-dark);
+    }
+  }
+}
+
+div.socials-hire {
+  margin-top: 100px;
+}
+
+.hire {
+  grid-column: 20 / span 4;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-weight: 100;
+  font-family: var(--font-antonio);
+
+  a {
+    background-color: transparent;
+    color: var(--color-white);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 1.5rem 3.125rem;
+    border: 2px solid var(--color-white);
+    transition: all 0.2s ease;
+    font-size: 1.5rem;
+
+    &:hover {
+      background-color: var(--color-white);
+      color: var(--color-dark);
     }
   }
 }

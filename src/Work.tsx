@@ -81,11 +81,11 @@ const TIMING = {
 };
 
 function Work() {
-  const title = 'CLIENT WORK';
+  const title = 'CLIENTS';
 
   return (
     <section className="container work">
-      <h2 className="my-2">
+      <h2 className="my-2 ml-2">
         {title.split('').map((char, index) => (
           <span key={index}>{char}</span>
         ))}

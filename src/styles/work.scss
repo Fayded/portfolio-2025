@@ -94,6 +94,7 @@
     align-items: center;
     color: var(--color-white);
     display: flex;
+    flex-direction: column;
     font-family: var(--font-anton);
     font-size: 5rem;
     height: 100vh;
@@ -105,7 +106,7 @@
     text-align: center;
     text-transform: uppercase;
     width: 100%;
-    pointer-events: none;
+    pointer-events: auto;
 
     @media (min-width: $bp-sm) {
       font-size: 6rem;
