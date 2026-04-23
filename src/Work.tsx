@@ -300,22 +300,16 @@ function BrandSection({ brand }: { brand: Brand }) {
       {selectedIndex !== null && <CloseButton onClick={handleClose} />}
       <h3>{brand.name}</h3>
 
-      <AnimatePresence>
-        {selectedIndex !== null && isMasking && (
-          <motion.h3
-            className="brand-mask-text"
-            initial={{ opacity: 0, filter: 'blur(10px)' }}
-            animate={{ opacity: 1, filter: 'blur(0px)' }}
-            exit={{ opacity: 0, filter: 'blur(8px)' }}
-            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            style={{
-              backgroundImage: `url(${closingMaskImage || brand.slideShow[currentSlideIndex].src})`,
-            }}
-          >
-            {brand.name}
-          </motion.h3>
-        )}
-      </AnimatePresence>
+      {selectedIndex !== null && isMasking && (
+        <h3
+          className="brand-mask-text"
+          style={{
+            backgroundImage: `url(${closingMaskImage || brand.slideShow[currentSlideIndex].src})`,
+          }}
+        >
+          {brand.name}
+        </h3>
+      )}
 
       {brand.images.map((image, index) => (
         <div key={index}>

@@ -1,91 +1,30 @@
 @use './_variables' as *;
 @use './_grid';
 
-.brand-close-button {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 10;
-  background: transparent;
-  border: 2px solid var(--color-white);
-  color: var(--color-white);
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-
-  @media (min-width: $bp-md) {
-    top: 2rem;
-    right: 2rem;
-    width: 3rem;
-    height: 3rem;
-    font-size: 1.5rem;
-  }
-}
-
-.brand-mask-text {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 10;
-  background-size: cover;
-  background-position: center;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 4rem;
-  font-family: var(--font-anton);
-  text-transform: uppercase;
-  letter-spacing: 5px;
-  margin: 0;
-  line-height: 1;
-
-  @media (min-width: $bp-md) {
-    font-size: 10rem;
-    letter-spacing: 12px;
-  }
-
-  @media (min-width: $bp-lg) {
-    font-size: 15rem;
-    letter-spacing: 16px;
-  }
-
-  @media (min-width: $bp-xl) {
-    font-size: 21rem;
-    letter-spacing: 20px;
-  }
-}
-
 .work {
-  h2 {
+  .brand-close-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
+    background: transparent;
+    border: 2px solid var(--color-white);
     color: var(--color-white);
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.25rem;
     display: flex;
-    font-family: 'Gotham', Avenir, sans-serif;
-    font-size: 0.875rem;
-    justify-content: space-between;
-    line-height: 1;
-    width: 94vw;
-    margin: 0 auto;
-    padding: 0 1rem;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
 
     @media (min-width: $bp-md) {
-      font-size: 1.125rem;
-      width: 96vw;
-      padding: 0;
-    }
-
-    @media (min-width: $bp-lg) {
+      top: 2rem;
+      right: 2rem;
+      width: 3rem;
+      height: 3rem;
       font-size: 1.5rem;
     }
   }
@@ -106,7 +45,7 @@
     text-align: center;
     text-transform: uppercase;
     width: 100%;
-    pointer-events: auto;
+    pointer-events: none;
 
     @media (min-width: $bp-sm) {
       font-size: 6rem;
@@ -129,13 +68,81 @@
     }
 
     &:last-child {
-      z-index: 10;
+      z-index: 100;
+      pointer-events: none;
       color: transparent;
-      -webkit-text-stroke: 1px var(--color-white);
 
       @media (min-width: $bp-md) {
         -webkit-text-stroke: 2px var(--color-white);
       }
+    }
+  }
+
+  .brand-mask-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 30;
+    background-size: cover;
+    background-position: center;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-stroke: 0;
+    opacity: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    font-family: var(--font-anton);
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    margin: 0;
+    line-height: 1;
+
+    @media (min-width: $bp-sm) {
+      font-size: 6rem;
+      letter-spacing: 8px;
+    }
+
+    @media (min-width: $bp-md) {
+      font-size: 10rem;
+      letter-spacing: 12px;
+    }
+
+    @media (min-width: $bp-lg) {
+      font-size: 15rem;
+      letter-spacing: 16px;
+    }
+
+    @media (min-width: $bp-xl) {
+      font-size: 21rem;
+      letter-spacing: 20px;
+    }
+  }
+
+  h2 {
+    color: var(--color-white);
+    display: flex;
+    font-family: 'Gotham', Avenir, sans-serif;
+    font-size: 0.875rem;
+    justify-content: space-between;
+    line-height: 1;
+    width: 94vw;
+    margin: 0 auto;
+    padding: 0 1rem;
+
+    @media (min-width: $bp-md) {
+      font-size: 1.125rem;
+      width: 96vw;
+      padding: 0;
+    }
+
+    @media (min-width: $bp-lg) {
+      font-size: 1.5rem;
     }
   }
 
@@ -147,15 +154,17 @@
     }
 
     &--item {
+      cursor: pointer;
       display: block;
       width: 10rem;
       height: 20rem;
       overflow: hidden;
       position: absolute;
+      pointer-events: auto;
       text-align: center;
       top: 50%;
       transform: translateY(-50%) rotate(-10deg);
-      z-index: 1;
+      z-index: 11;
 
       @media (min-width: 1024px) {
         width: 17rem;
@@ -176,6 +185,13 @@
         top: 50%;
         transform: translate(-50%, -50%);
         width: auto;
+
+        &.work-list--bg {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          max-height: none;
+        }
       }
     }
   }

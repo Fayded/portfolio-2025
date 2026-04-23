@@ -1,5 +1,5 @@
 import { AnimatePresence, motion, useInView } from 'framer-motion';
-import { useRef, useState, useEffect, useCallback } from 'react';
+import { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import './styles/history.scss';
 
 import mercedesEmblem from './assets/mercedes-emblem.jpg';
@@ -41,7 +41,7 @@ interface Brand {
 const brands: Brand[] = [
   {
     name: 'Morgan Stanley',
-    title: 'Senior Software Engineer',
+    title: 'Sr_User_Interface_Engineer',
     projects: [
       {
         name: 'Project 1',
@@ -76,7 +76,7 @@ const brands: Brand[] = [
   },
   {
     name: 'Talitrix',
-    title: 'Software Engineer',
+    title: 'Sr_Software_Developer',
     projects: [
       {
         name: 'Project 1',
@@ -101,7 +101,7 @@ const brands: Brand[] = [
   },
   {
     name: 'Red Ventures',
-    title: 'Software Engineer',
+    title: 'Sr_Software_Engineer',
     projects: [
       {
         name: 'Project 1',
@@ -125,7 +125,7 @@ const brands: Brand[] = [
   },
   {
     name: 'Porsche Digital',
-    title: 'Software Engineer',
+    title: 'Sr_Software_Engineer',
     projects: [
       {
         name: 'Project 1',
@@ -149,7 +149,7 @@ const brands: Brand[] = [
   },
   {
     name: 'Captech Ventures',
-    title: 'Software Engineer',
+    title: 'Manager_Frontend_Development',
     projects: [
       {
         name: 'Project 1',
@@ -172,8 +172,8 @@ const brands: Brand[] = [
     ],
   },
   {
-    name: 'Razorfish',
-    title: 'Software Engineer',
+    name: 'Sapient Razorfish',
+    title: 'Presentation_Layer_Engineer',
     projects: [
       {
         name: 'Project 1',
@@ -196,8 +196,8 @@ const brands: Brand[] = [
     ],
   },
   {
-    name: 'Ogilvy & Mather',
-    title: 'UI Developer',
+    name: 'Ogilvy& Mather',
+    title: 'UI_Developer',
     projects: [
       {
         name: 'Project 1',
@@ -219,30 +219,6 @@ const brands: Brand[] = [
       },
     ],
   },
-  {
-    name: 'Definition6',
-    title: 'UI Developer',
-    projects: [
-      {
-        name: 'Project 1',
-        languages: ['JavaScript'],
-        image: { src: carmaxOldCars, alt: 'CarMax' },
-        slideShow: [
-          { src: carmaxOldCars, alt: 'CarMax' },
-          { src: carmaxParkingLot, alt: 'CarMax' },
-        ],
-      },
-      {
-        name: 'Project 2',
-        languages: ['Flash', 'ActionScript'],
-        image: { src: carmaxParkingLot, alt: 'CarMax' },
-        slideShow: [
-          { src: carmaxParkingLot, alt: 'CarMax' },
-          { src: carmaxOldCars, alt: 'CarMax' },
-        ],
-      },
-    ],
-  },
 ];
 
 const TIMING = {
@@ -254,225 +230,332 @@ const TIMING = {
   backgroundTransitionDuration: 1000,
 };
 
-function History() {
-  const title = 'CLIENTS';
+const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const randomLetter = () => ALPHABET[Math.floor(Math.random() * 26)];
 
-  return (
-    <section className="container work">
-      <h2 className="my-2 ml-2">
-        {title.split('').map((char, index) => (
-          <span key={index}>{char}</span>
-        ))}
-      </h2>
-      <div className="work-list">
-        {brands.map((brand) => (
-          <BrandSection key={brand.name} brand={brand} />
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function CloseButton({ onClick }: { onClick: (e: React.MouseEvent) => void }) {
-  return (
-    <button
-      onClick={onClick}
-      className="brand-close-button"
-      onMouseEnter={(e) => {
-        e.currentTarget.style.background = 'var(--color-white)';
-        e.currentTarget.style.color = 'black';
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.background = 'transparent';
-        e.currentTarget.style.color = 'var(--color-white)';
-      }}
-    >
-      ×
-    </button>
-  );
-}
+// --- Hooks ---
 
 function useScrambleText(name: string) {
   const [isHovered, setIsHovered] = useState(false);
-  const [letters, setLetters] = useState<string[]>(name.split(''));
-  const intervalRefs = useRef<{ [key: number]: NodeJS.Timeout | null }>({});
-  const revealTimeoutRefs = useRef<NodeJS.Timeout[]>([]);
+  const [letters, setLetters] = useState<string[]>(() => name.split(''));
+  const timers = useRef<{
+    intervals: Record<number, NodeJS.Timeout>;
+    timeouts: NodeJS.Timeout[];
+  }>({
+    intervals: {},
+    timeouts: [],
+  });
 
-  const getRandomLetter = () => {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    return chars[Math.floor(Math.random() * chars.length)];
-  };
-
-  const updateLetterAtIndex = useCallback((index: number, letter: string) => {
+  const setChar = useCallback((i: number, ch: string) => {
     setLetters((prev) => {
-      const newLetters = [...prev];
-      newLetters[index] = letter;
-      return newLetters;
+      const next = [...prev];
+      next[i] = ch;
+      return next;
     });
   }, []);
 
   useEffect(() => {
-    Object.values(intervalRefs.current).forEach((interval) => {
-      if (interval) clearInterval(interval);
-    });
-    revealTimeoutRefs.current.forEach(clearTimeout);
-    intervalRefs.current = {};
-    revealTimeoutRefs.current = [];
+    const { intervals, timeouts } = timers.current;
+    Object.values(intervals).forEach(clearInterval);
+    timeouts.forEach(clearTimeout);
+    timers.current = { intervals: {}, timeouts: [] };
 
-    if (isHovered) {
-      name.split('').forEach((_, index) => {
-        if (name[index] !== ' ') {
-          intervalRefs.current[index] = setInterval(() => {
-            updateLetterAtIndex(index, getRandomLetter());
-          }, 120);
-        }
-      });
-
-      name.split('').forEach((char, index) => {
-        const timeout = setTimeout(
-          () => {
-            if (intervalRefs.current[index]) {
-              clearInterval(intervalRefs.current[index]!);
-              intervalRefs.current[index] = null;
-            }
-            updateLetterAtIndex(index, char);
-          },
-          index * 100 + 300
-        );
-        revealTimeoutRefs.current.push(timeout);
-      });
-    } else {
+    if (!isHovered) {
       setLetters(name.split(''));
+      return;
     }
 
-    return () => {
-      Object.values(intervalRefs.current).forEach((interval) => {
-        if (interval) clearInterval(interval);
-      });
-      revealTimeoutRefs.current.forEach(clearTimeout);
-    };
-  }, [isHovered, name, updateLetterAtIndex]);
+    const chars = name.split('');
+    chars.forEach((ch, i) => {
+      if (ch === ' ') return;
+      timers.current.intervals[i] = setInterval(
+        () => setChar(i, randomLetter()),
+        120
+      );
+      timers.current.timeouts.push(
+        setTimeout(
+          () => {
+            clearInterval(timers.current.intervals[i]);
+            setChar(i, ch);
+          },
+          i * 100 + 300
+        )
+      );
+    });
 
-  return { letters, setIsHovered };
+    return () => {
+      Object.values(timers.current.intervals).forEach(clearInterval);
+      timers.current.timeouts.forEach(clearTimeout);
+    };
+  }, [isHovered, name, setChar]);
+
+  return { letters, isHovered, setIsHovered };
 }
 
-function AnimatedBrandName({
-  name,
+function useCharWidths(
+  text: string,
+  containerRef: React.RefObject<HTMLDivElement | null>,
+  selector = 'h3'
+) {
+  const [widths, setWidths] = useState<number[]>([]);
+
+  useEffect(() => {
+    const measure = () => {
+      const el = containerRef.current?.querySelector(selector);
+      if (!el) return;
+      const style = window.getComputedStyle(el);
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+      ctx.font = `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+      setWidths(
+        text
+          .split('')
+          .map((c) =>
+            c === ' ' ? 0 : Math.ceil(ctx.measureText(c.toUpperCase()).width)
+          )
+      );
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, [text, containerRef, selector]);
+
+  return widths;
+}
+
+function useViewport(breakpoint = 1024) {
+  const [isLarge, setIsLarge] = useState(
+    () => typeof window !== 'undefined' && window.innerWidth >= breakpoint
+  );
+  useEffect(() => {
+    const handler = () => setIsLarge(window.innerWidth >= breakpoint);
+    window.addEventListener('resize', handler);
+    return () => window.removeEventListener('resize', handler);
+  }, [breakpoint]);
+  return isLarge;
+}
+
+// --- Components ---
+
+function BrandTitle({
+  title,
+  isHovered,
+  charWidths,
+}: {
+  title: string;
+  isHovered: boolean;
+  charWidths: number[];
+}) {
+  const [active, setActive] = useState(false);
+  const [scrambledChars, setScrambledChars] = useState<string[]>([]);
+  const timers = useRef<{
+    intervals: Record<number, NodeJS.Timeout>;
+    timeouts: NodeJS.Timeout[];
+  }>({ intervals: {}, timeouts: [] });
+
+  useEffect(() => {
+    Object.values(timers.current.intervals).forEach(clearInterval);
+    timers.current.timeouts.forEach(clearTimeout);
+    timers.current = { intervals: {}, timeouts: [] };
+
+    if (!isHovered) {
+      setActive(false);
+      setScrambledChars([]);
+      return;
+    }
+
+    const chars = title.split('');
+    setScrambledChars(chars.map((c) => (c === ' ' ? ' ' : randomLetter())));
+    setActive(true);
+
+    chars.forEach((ch, i) => {
+      if (ch === ' ') return;
+      timers.current.intervals[i] = setInterval(() => {
+        setScrambledChars((prev) => {
+          const next = [...prev];
+          next[i] = randomLetter();
+          return next;
+        });
+      }, 120);
+      timers.current.timeouts.push(
+        setTimeout(
+          () => {
+            clearInterval(timers.current.intervals[i]);
+            setScrambledChars((prev) => {
+              const next = [...prev];
+              next[i] = ch;
+              return next;
+            });
+          },
+          i * 80 + 400
+        )
+      );
+    });
+
+    return () => {
+      Object.values(timers.current.intervals).forEach(clearInterval);
+      timers.current.timeouts.forEach(clearTimeout);
+    };
+  }, [isHovered, title, active]);
+
+  return (
+    <h4 style={active ? undefined : { opacity: 0, visibility: 'hidden' }}>
+      {(active ? scrambledChars : title.split('')).map((ch, i) => (
+        <span
+          key={i}
+          style={{
+            display: 'inline-block',
+            width:
+              ch === ' '
+                ? '0.3em'
+                : charWidths[i]
+                  ? `${charWidths[i]}px`
+                  : '0.55em',
+            textAlign: 'center',
+            overflow: 'hidden',
+          }}
+        >
+          {active ? (
+            <AnimatePresence mode="popLayout">
+              <motion.span
+                key={`${ch}-${i}`}
+                initial={{ y: -8, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: 8, opacity: 0 }}
+                transition={{ duration: 0.25, ease: 'easeOut' }}
+                style={{ display: 'inline-block' }}
+              >
+                {ch}
+              </motion.span>
+            </AnimatePresence>
+          ) : (
+            ch
+          )}
+        </span>
+      ))}
+    </h4>
+  );
+}
+
+function BrandName({
+  variant,
   letters,
   charWidths,
+  maskStyle,
+  isMasking,
+  maskKey,
+  children,
   onMouseEnter,
   onMouseLeave,
 }: {
-  name: string;
+  variant: 'filled' | 'outline' | 'mask';
   letters: string[];
   charWidths: number[];
+  maskStyle?: React.CSSProperties;
+  isMasking?: boolean;
+  maskKey?: number;
+  children?: React.ReactNode;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
 }) {
-  // Split letters into words based on space positions in the original name
-  const words: { chars: string[]; startIndex: number }[] = [];
-  let currentWord: string[] = [];
-  let wordStart = 0;
-  name.split('').forEach((origChar, i) => {
-    if (origChar === ' ') {
-      if (currentWord.length > 0) {
-        words.push({ chars: currentWord, startIndex: wordStart });
-        currentWord = [];
+  const words = useMemo(() => {
+    const result: { chars: string[]; startIndex: number }[] = [];
+    let word: string[] = [];
+    let start = 0;
+    letters.forEach((ch, i) => {
+      if (ch === ' ') {
+        if (word.length) result.push({ chars: word, startIndex: start });
+        word = [];
+        start = i + 1;
+      } else {
+        word.push(ch);
       }
-      wordStart = i + 1;
-    } else {
-      currentWord.push(letters[i]);
-    }
-  });
-  if (currentWord.length > 0) {
-    words.push({ chars: currentWord, startIndex: wordStart });
-  }
+    });
+    if (word.length) result.push({ chars: word, startIndex: start });
+    return result;
+  }, [letters]);
 
-  return (
-    <h3
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      style={{ cursor: onMouseEnter ? 'pointer' : undefined }}
-    >
-      {words.map((word, wordIndex) => (
-        <span
-          key={wordIndex}
-          style={{ display: 'block', whiteSpace: 'nowrap' }}
-        >
-          {word.chars.map((char, charIndex) => {
-            const globalIndex = word.startIndex + charIndex;
-            return (
-              <span
-                key={charIndex}
-                style={{
-                  display: 'inline-block',
-                  width: charWidths[globalIndex]
-                    ? `${charWidths[globalIndex]}px`
-                    : '0.55em',
-                  textAlign: 'center',
-                  overflow: 'hidden',
-                  position: 'relative',
-                }}
-              >
+  const renderChars = (animated: boolean) =>
+    words.map((w, wi) => (
+      <span key={wi} style={{ display: 'block', whiteSpace: 'nowrap' }}>
+        {w.chars.map((ch, ci) => {
+          const gi = w.startIndex + ci;
+          return (
+            <span
+              key={ci}
+              style={{
+                display: 'inline-block',
+                width: charWidths[gi] ? `${charWidths[gi]}px` : '0.55em',
+                textAlign: 'center',
+                overflow: 'hidden',
+                position: 'relative',
+              }}
+            >
+              {animated ? (
                 <AnimatePresence mode="popLayout">
                   <motion.span
-                    key={`${char}-${globalIndex}`}
+                    key={`${ch}-${gi}`}
                     initial={{ y: -10, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ y: 10, opacity: 0 }}
                     transition={{ duration: 0.35, ease: 'easeOut' }}
                     style={{ display: 'inline-block', position: 'relative' }}
                   >
-                    {char}
+                    {ch}
                   </motion.span>
                 </AnimatePresence>
-              </span>
-            );
-          })}
-        </span>
-      ))}
+              ) : (
+                ch
+              )}
+            </span>
+          );
+        })}
+      </span>
+    ));
+
+  if (variant === 'mask') {
+    return (
+      <AnimatePresence>
+        {isMasking && (
+          <motion.h3
+            key={maskKey}
+            className="brand-mask-text"
+            initial={{ opacity: 0, filter: 'blur(10px)' }}
+            animate={{ opacity: 1, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, filter: 'blur(8px)' }}
+            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+            style={maskStyle}
+          >
+            {renderChars(false)}
+          </motion.h3>
+        )}
+      </AnimatePresence>
+    );
+  }
+
+  return (
+    <h3
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      style={onMouseEnter ? { cursor: 'pointer', pointerEvents: 'auto' } : undefined}
+    >
+      <span style={{ position: 'relative' }}>
+        {renderChars(true)}
+        {children}
+      </span>
     </h3>
   );
 }
 
-function useMeasureCharWidths(name: string, containerRef: React.RefObject<HTMLDivElement | null>) {
-  const [charWidths, setCharWidths] = useState<number[]>([]);
-
-  useEffect(() => {
-    const measure = () => {
-      const container = containerRef.current;
-      if (!container) return;
-
-      const h3 = container.querySelector('h3');
-      if (!h3) return;
-
-      const style = window.getComputedStyle(h3);
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
-
-      ctx.font = `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
-
-      const widths = name.split('').map((char) => {
-        if (char === ' ') return 0;
-        return Math.ceil(ctx.measureText(char.toUpperCase()).width);
-      });
-
-      setCharWidths(widths);
-    };
-
-    measure();
-    window.addEventListener('resize', measure);
-    return () => window.removeEventListener('resize', measure);
-  }, [name, containerRef]);
-
-  return charWidths;
-}
-
 function BrandSection({ brand }: { brand: Brand }) {
   const ref = useRef<HTMLDivElement>(null);
-  const { letters, setIsHovered } = useScrambleText(brand.name);
-  const charWidths = useMeasureCharWidths(brand.name, ref);
+  const { letters, isHovered, setIsHovered } = useScrambleText(brand.name);
+  const charWidths = useCharWidths(brand.name, ref);
+  const titleCharWidths = useCharWidths(brand.title || '', ref, 'h4');
+  const isLarge = useViewport();
+  const isInView = useInView(ref, { once: false, amount: 0.8 });
+
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [animationStage, setAnimationStage] = useState<AnimationStage>('idle');
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
@@ -480,24 +563,15 @@ function BrandSection({ brand }: { brand: Brand }) {
   const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
   const [backgroundIndex, setBackgroundIndex] = useState<number | null>(null);
   const [closingMaskImage, setClosingMaskImage] = useState<string | null>(null);
-  const [isLargeViewport, setIsLargeViewport] = useState(
-    typeof window !== 'undefined' ? window.innerWidth >= 1024 : false
-  );
-  const isInView = useInView(ref, { once: false, amount: 0.8 });
 
-  const itemWidth = isLargeViewport ? '10rem' : '5rem';
-  const itemHeight = isLargeViewport ? '35rem' : '18rem';
+  const itemWidth = isLarge ? '10rem' : '5rem';
+  const itemHeight = isLarge ? '35rem' : '18rem';
+  const nameProps = {
+    letters,
+    charWidths,
+  };
 
-  useEffect(() => {
-    const handleResize = () => setIsLargeViewport(window.innerWidth >= 1024);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const isSelected = (index: number) => selectedIndex === index;
-  const hasBackground = (index: number) =>
-    backgroundImage && backgroundIndex === index;
-
+  // Selection lifecycle
   useEffect(() => {
     if (selectedIndex === null || !ref.current) {
       setAnimationStage('idle');
@@ -506,72 +580,54 @@ function BrandSection({ brand }: { brand: Brand }) {
       setClosingMaskImage(null);
       return;
     }
-
     setBackgroundIndex(selectedIndex);
-
-    const element = ref.current;
-    const elementTop = element.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({ top: elementTop, behavior: 'smooth' });
-
+    const top = ref.current.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top, behavior: 'smooth' });
     setAnimationStage('centering');
-    const timerId = setTimeout(
+    const id = setTimeout(
       () => setAnimationStage('expanding'),
       TIMING.centeringDuration
     );
-    return () => clearTimeout(timerId);
+    return () => clearTimeout(id);
   }, [selectedIndex]);
 
+  // Slideshow
   useEffect(() => {
     if (animationStage !== 'expanding' || selectedIndex === null) return;
+    const slides = brand.projects[selectedIndex]?.slideShow;
+    if (!slides) return;
 
-    const selectedProject = brand.projects[selectedIndex];
-    if (!selectedProject) return;
-
-    const slideShowImages = selectedProject.slideShow;
-    const initialMaskDelay = Math.max(
+    const ids: number[] = [];
+    const queue = (fn: () => void, delay: number) =>
+      ids.push(window.setTimeout(fn, delay));
+    const maskDelay0 = Math.max(
       0,
       TIMING.initialMaskDelayAfterClick - TIMING.centeringDuration
     );
-    const backgroundSwapDelay =
+    const swapDelay =
       TIMING.maskTransitionDuration + TIMING.backgroundDelayAfterMaskTransition;
-    const timeoutIds: number[] = [];
 
-    const queueTimeout = (callback: () => void, delay: number) => {
-      timeoutIds.push(window.setTimeout(callback, delay));
-    };
-
-    const runSlideshow = (maskDelay: number, slideIndex: number) => {
-      queueTimeout(() => {
-        setCurrentSlideIndex(slideIndex);
+    const run = (delay: number, i: number) => {
+      queue(() => {
+        setCurrentSlideIndex(i);
         setIsMasking(true);
-
-        queueTimeout(() => {
-          setBackgroundImage(slideShowImages[slideIndex].src);
-
-          queueTimeout(() => {
+        queue(() => {
+          setBackgroundImage(slides[i].src);
+          queue(() => {
             setIsMasking(false);
-            runSlideshow(
-              TIMING.loopMaskDelay,
-              (slideIndex + 1) % slideShowImages.length
-            );
+            run(TIMING.loopMaskDelay, (i + 1) % slides.length);
           }, TIMING.backgroundTransitionDuration);
-        }, backgroundSwapDelay);
-      }, maskDelay);
+        }, swapDelay);
+      }, delay);
     };
 
-    runSlideshow(initialMaskDelay, 0);
-    return () => timeoutIds.forEach(clearTimeout);
+    run(maskDelay0, 0);
+    return () => ids.forEach(clearTimeout);
   }, [animationStage, selectedIndex, brand.projects]);
-
-  const handleImageClick = (index: number, e: React.MouseEvent) => {
-    e.preventDefault();
-    setSelectedIndex(selectedIndex === index ? null : index);
-  };
 
   const handleClose = (e: React.MouseEvent) => {
     e.preventDefault();
     setAnimationStage('contracting');
-
     setTimeout(() => {
       setAnimationStage('returning');
       setTimeout(() => setSelectedIndex(null), 600);
@@ -591,7 +647,7 @@ function BrandSection({ brand }: { brand: Brand }) {
       zIndex: 1,
     };
 
-    if (isSelected(index)) {
+    if (selectedIndex === index) {
       const centered = {
         left: '50%',
         top: '50%',
@@ -653,43 +709,54 @@ function BrandSection({ brand }: { brand: Brand }) {
   };
 
   return (
-    <motion.div className="work-list--brand" ref={ref}>
-      {selectedIndex !== null && <CloseButton onClick={handleClose} />}
-      <AnimatedBrandName
-        name={brand.name}
-        letters={letters}
-        charWidths={charWidths}
+    <motion.div className="history-list--brand" ref={ref}>
+      {selectedIndex !== null && (
+        <button onClick={handleClose} className="brand-close-button">
+          ×
+        </button>
+      )}
+      <BrandName
+        variant="filled"
+        {...nameProps}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-      />
-
-      <AnimatePresence>
-        {selectedIndex !== null && isMasking && (
-          <motion.h3
-            className="brand-mask-text"
-            initial={{ opacity: 0, filter: 'blur(10px)' }}
-            animate={{ opacity: 1, filter: 'blur(0px)' }}
-            exit={{ opacity: 0, filter: 'blur(8px)' }}
-            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            style={{
-              backgroundImage: `url(${closingMaskImage || brand.projects[selectedIndex].slideShow[currentSlideIndex]?.src})`,
-            }}
-          >
-            {brand.name}
-          </motion.h3>
+      >
+        {brand.title && (
+          <BrandTitle
+            title={brand.title}
+            isHovered={isHovered}
+            charWidths={titleCharWidths}
+          />
         )}
-      </AnimatePresence>
+      </BrandName>
+
+      <BrandName
+        variant="mask"
+        {...nameProps}
+        isMasking={selectedIndex !== null && isMasking}
+        maskKey={currentSlideIndex}
+        maskStyle={{
+          backgroundImage:
+            selectedIndex !== null
+              ? `url(${closingMaskImage || brand.projects[selectedIndex].slideShow[currentSlideIndex]?.src})`
+              : undefined,
+        }}
+      />
 
       {brand.projects.map((project, index) => (
         <div key={index}>
           <motion.a
             href="#"
-            className="work-list--item"
-            onClick={(e) => handleImageClick(index, e)}
+            className="history-list--item"
+            onClick={(e) => {
+              e.preventDefault();
+              setSelectedIndex(selectedIndex === index ? null : index);
+            }}
             style={{
-              backgroundImage: hasBackground(index)
-                ? `url(${backgroundImage})`
-                : undefined,
+              backgroundImage:
+                backgroundImage && backgroundIndex === index
+                  ? `url(${backgroundImage})`
+                  : undefined,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}
@@ -709,7 +776,9 @@ function BrandSection({ brand }: { brand: Brand }) {
             <motion.img
               src={project.image.src}
               alt={project.image.alt}
-              animate={{ opacity: hasBackground(index) ? 0 : 1 }}
+              animate={{
+                opacity: backgroundImage && backgroundIndex === index ? 0 : 1,
+              }}
               transition={{
                 duration:
                   animationStage === 'contracting' ||
@@ -719,16 +788,27 @@ function BrandSection({ brand }: { brand: Brand }) {
               }}
             />
           </motion.a>
-          <AnimatedBrandName
-            name={brand.name}
-            letters={letters}
-            charWidths={charWidths}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          />
+          <BrandName variant="outline" {...nameProps} />
         </div>
       ))}
     </motion.div>
+  );
+}
+
+function History() {
+  return (
+    <section className="container history">
+      <h2 className="my-2 ml-2">
+        {'CLIENTS'.split('').map((ch, i) => (
+          <span key={i}>{ch}</span>
+        ))}
+      </h2>
+      <div className="history-list">
+        {brands.map((brand) => (
+          <BrandSection key={brand.name} brand={brand} />
+        ))}
+      </div>
+    </section>
   );
 }
 
