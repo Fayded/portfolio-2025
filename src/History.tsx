@@ -743,10 +743,6 @@ function BrandSection({ brand }: { brand: Brand }) {
               setSelectedIndex(selectedIndex === index ? null : index);
             }}
             style={{
-              backgroundImage:
-                backgroundImage && backgroundIndex === index
-                  ? `url(${backgroundImage})`
-                  : undefined,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}
@@ -763,6 +759,20 @@ function BrandSection({ brand }: { brand: Brand }) {
                 : {}
             }
           >
+            <AnimatePresence>
+              {backgroundImage && backgroundIndex === index && (
+                <motion.img
+                  key={backgroundImage}
+                  src={backgroundImage}
+                  alt=""
+                  className="history-list--bg"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
+                />
+              )}
+            </AnimatePresence>
             <motion.img
               src={project.image.src}
               alt={project.image.alt}
