@@ -33,7 +33,7 @@ interface Brand {
 
 const brands: Brand[] = [
   {
-    name: 'mercedes',
+    name: 'mercedes benz',
     images: [
       { src: mercedesG, alt: 'Mercedes Vans' },
       { src: mercedesGrill, alt: 'Mercedes Vans' },

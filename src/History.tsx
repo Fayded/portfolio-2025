@@ -439,22 +439,14 @@ function BrandTitle({
 }
 
 function BrandName({
-  variant,
   letters,
   charWidths,
-  maskStyle,
-  isMasking,
-  maskKey,
   children,
   onMouseEnter,
   onMouseLeave,
 }: {
-  variant: 'filled' | 'outline' | 'mask';
   letters: string[];
   charWidths: number[];
-  maskStyle?: React.CSSProperties;
-  isMasking?: boolean;
-  maskKey?: number;
   children?: React.ReactNode;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
@@ -476,72 +468,47 @@ function BrandName({
     return result;
   }, [letters]);
 
-  const renderChars = (animated: boolean) =>
-    words.map((w, wi) => (
-      <span key={wi} style={{ display: 'block', whiteSpace: 'nowrap' }}>
-        {w.chars.map((ch, ci) => {
-          const gi = w.startIndex + ci;
-          return (
-            <span
-              key={ci}
-              style={{
-                display: 'inline-block',
-                width: charWidths[gi] ? `${charWidths[gi]}px` : '0.55em',
-                textAlign: 'center',
-                overflow: 'hidden',
-                position: 'relative',
-              }}
-            >
-              {animated ? (
-                <AnimatePresence mode="popLayout">
-                  <motion.span
-                    key={`${ch}-${gi}`}
-                    initial={{ y: -10, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: 10, opacity: 0 }}
-                    transition={{ duration: 0.35, ease: 'easeOut' }}
-                    style={{ display: 'inline-block', position: 'relative' }}
-                  >
-                    {ch}
-                  </motion.span>
-                </AnimatePresence>
-              ) : (
-                ch
-              )}
-            </span>
-          );
-        })}
-      </span>
-    ));
-
-  if (variant === 'mask') {
-    return (
-      <AnimatePresence>
-        {isMasking && (
-          <motion.h3
-            key={maskKey}
-            className="brand-mask-text"
-            initial={{ opacity: 0, filter: 'blur(10px)' }}
-            animate={{ opacity: 1, filter: 'blur(0px)' }}
-            exit={{ opacity: 0, filter: 'blur(8px)' }}
-            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            style={maskStyle}
-          >
-            {renderChars(false)}
-          </motion.h3>
-        )}
-      </AnimatePresence>
-    );
-  }
-
   return (
     <h3
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      style={onMouseEnter ? { cursor: 'pointer', pointerEvents: 'auto' } : undefined}
+      style={
+        onMouseEnter ? { cursor: 'pointer', pointerEvents: 'auto' } : undefined
+      }
     >
       <span style={{ position: 'relative' }}>
-        {renderChars(true)}
+        {words.map((w, wi) => (
+          <span key={wi} style={{ display: 'block', whiteSpace: 'nowrap' }}>
+            {w.chars.map((ch, ci) => {
+              const gi = w.startIndex + ci;
+              return (
+                <span
+                  key={ci}
+                  style={{
+                    display: 'inline-block',
+                    width: charWidths[gi] ? `${charWidths[gi]}px` : '0.55em',
+                    textAlign: 'center',
+                    overflow: 'hidden',
+                    position: 'relative',
+                  }}
+                >
+                  <AnimatePresence mode="popLayout">
+                    <motion.span
+                      key={`${ch}-${gi}`}
+                      initial={{ y: -10, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: 10, opacity: 0 }}
+                      transition={{ duration: 0.35, ease: 'easeOut' }}
+                      style={{ display: 'inline-block', position: 'relative' }}
+                    >
+                      {ch}
+                    </motion.span>
+                  </AnimatePresence>
+                </span>
+              );
+            })}
+          </span>
+        ))}
         {children}
       </span>
     </h3>
@@ -716,7 +683,6 @@ function BrandSection({ brand }: { brand: Brand }) {
         </button>
       )}
       <BrandName
-        variant="filled"
         {...nameProps}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -730,18 +696,41 @@ function BrandSection({ brand }: { brand: Brand }) {
         )}
       </BrandName>
 
-      <BrandName
-        variant="mask"
-        {...nameProps}
-        isMasking={selectedIndex !== null && isMasking}
-        maskKey={currentSlideIndex}
-        maskStyle={{
-          backgroundImage:
-            selectedIndex !== null
-              ? `url(${closingMaskImage || brand.projects[selectedIndex].slideShow[currentSlideIndex]?.src})`
-              : undefined,
-        }}
-      />
+      {selectedIndex !== null && isMasking && (() => {
+        const maskImageUrl = closingMaskImage || brand.projects[selectedIndex].slideShow[currentSlideIndex]?.src;
+        return (
+          <h3 className="brand-mask-text">
+            {brand.name.split(' ').map((word, wi) => (
+              <span key={wi} style={{ display: 'block', whiteSpace: 'nowrap' }}>
+                {word.split('').map((ch, ci) => {
+                  const gi = brand.name.indexOf(word) + ci;
+                  return (
+                    <span
+                      key={ci}
+                      style={{
+                        display: 'inline-block',
+                        width: charWidths[gi] ? `${charWidths[gi]}px` : '0.55em',
+                        textAlign: 'center',
+                        overflow: 'hidden',
+                        position: 'relative',
+                        backgroundImage: `url(${maskImageUrl})`,
+                        backgroundSize: 'cover',
+                        backgroundAttachment: 'fixed',
+                        backgroundClip: 'text',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        color: 'transparent',
+                      }}
+                    >
+                      {ch}
+                    </span>
+                  );
+                })}
+              </span>
+            ))}
+          </h3>
+        );
+      })()}
 
       {brand.projects.map((project, index) => (
         <div key={index}>
@@ -788,7 +777,29 @@ function BrandSection({ brand }: { brand: Brand }) {
               }}
             />
           </motion.a>
-          <BrandName variant="outline" {...nameProps} />
+          <h3>
+            {brand.name.split(' ').map((word, wi) => (
+              <span key={wi} style={{ display: 'block', whiteSpace: 'nowrap' }}>
+                {word.split('').map((ch, ci) => {
+                  const gi = brand.name.indexOf(word) + ci;
+                  return (
+                    <span
+                      key={ci}
+                      style={{
+                        display: 'inline-block',
+                        width: charWidths[gi] ? `${charWidths[gi]}px` : '0.55em',
+                        textAlign: 'center',
+                        overflow: 'hidden',
+                        position: 'relative',
+                      }}
+                    >
+                      {ch}
+                    </span>
+                  );
+                })}
+              </span>
+            ))}
+          </h3>
         </div>
       ))}
     </motion.div>
