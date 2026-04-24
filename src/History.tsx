@@ -715,6 +715,7 @@ function BrandSection({ brand }: { brand: Brand }) {
                         position: 'relative',
                         backgroundImage: `url(${maskImageUrl})`,
                         backgroundSize: 'cover',
+                        backgroundPosition: 'center',
                         backgroundAttachment: 'fixed',
                         backgroundClip: 'text',
                         WebkitBackgroundClip: 'text',

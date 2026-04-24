@@ -130,7 +130,7 @@
     }
 
     &:last-child {
-      z-index: 20;
+      z-index: 100;
       pointer-events: none;
       color: transparent;
       -webkit-text-stroke: 1px var(--color-white);
