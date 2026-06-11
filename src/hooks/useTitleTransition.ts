@@ -124,7 +124,7 @@ export const useTitleAnimation = (
         });
 
       // After scatter completes, reverse each letter's path step by step
-      tl4.then(() => {
+      tl2.then(() => {
         setTimeout(() => {
           // Reverse Phase 2: A, Y, C retrace their paths
           // A went: x→center, y→top. Reverse: y→0, x→0
