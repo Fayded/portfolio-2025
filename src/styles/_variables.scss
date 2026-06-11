@@ -18,6 +18,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'FKRoman';
+  src: url('../fonts/FKRomanStandard.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
 // Breakpoints (mobile-first)
 $bp-sm: 576px;
 $bp-md: 768px;
@@ -29,6 +36,7 @@ $bp-xxl: 1400px;
   /* Fonts */
   --font-antonio: 'Antonio', 'Anton', Avenir, sans-serif;
   --font-anton: 'Anton', 'Antonio', Avenir, sans-serif;
+  --font-fkroman: 'FKRoman', Avenir, sans-serif;
   --font-gotham: 'Gotham', Avenir, sans-serif;
   --font-gotham-bold: 'Gotham-bold', Avenir, sans-serif;
 

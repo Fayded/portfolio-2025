@@ -1,5 +1,13 @@
 @use './variables' as *;
 
+.splash-wrapper {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  clip-path: inset(0);
+  overflow: hidden;
+}
+
 .splash {
   display: flex;
   align-items: center;

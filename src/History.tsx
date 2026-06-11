@@ -7,11 +7,44 @@ import mercedesG from './assets/mercedes-g.jpg';
 import mercedesWoods from './assets/mercedes-g-woods.jpg';
 import mercedesOldCars from './assets/mercedes-old-cars.jpg';
 import mercedesGrill from './assets/mercedes-grill.jpg';
+
+// Coke
+import cokeBottleBW from './assets/coke-bottle-bw.jpg';
+import cokeVintage from './assets/coke-vintage.jpg';
+import cokeNeonSign from './assets/coke-neon-sign.jpg';
+import cokeRed from './assets/coke-red.jpg';
+
+// Carmax
+import carmaxEmpty from './assets/carmax-empty.jpg';
 import carmaxOldCars from './assets/carmax-old-cars.jpg';
+import carmaxOneCar from './assets/carmax-one-car.jpg';
 import carmaxParkingLot from './assets/carmax-parking.jpg';
+import carmaxVintage from './assets/carmax-vintage.jpg';
+import carmaxSalesLot from './assets/carmax-sales-lot.jpg';
+
+// IHG
+import ihgMexico from './assets/ihg-mexico.jpg';
+import ihgOceanResort from './assets/ihg-ocean-resort.jpg';
+import ihgPool from './assets/ihg-pool.jpg';
+import ihgPoolSide from './assets/ihg-pool-side.jpg';
+
+// Morgan Stanley
+import morganCash from './assets/morgan-cash.jpg';
+
+// Points Guy
+import pointsGuyBoat from './assets/points-guy-boat.jpg';
+import pointsGuyIsland from './assets/points-guy-island.jpg';
+import pointsGuyMountains from './assets/points-guy-mountains.jpg';
+import pointsGuyWing from './assets/points-guy-wing.jpg';
+
+// Porsche
 import porscheBehind from './assets/porsche-behind.jpg';
-import porscheRim from './assets/porsche-rim.jpg';
 import porscheWheel from './assets/porsche-steering-wheel.jpg';
+import porscheBlue from './assets/porsche-blue.jpg';
+import porscheWoods from './assets/porsche-woods.jpg';
+
+// Talitrix
+import talitrix from './assets/talitrix.jpg';
 
 type AnimationStage =
   | 'idle'
@@ -41,180 +74,153 @@ interface Brand {
 const brands: Brand[] = [
   {
     name: 'Morgan Stanley',
-    title: 'Sr_User_Interface_Engineer',
+    title: 'Senior User Interface Engineer',
     projects: [
       {
-        name: 'Project 1',
+        name: 'Campfire',
         languages: ['React', 'TypeScript'],
-        image: { src: mercedesG, alt: 'Mercedes Vans' },
-        slideShow: [
-          { src: mercedesG, alt: 'Mercedes Vans' },
-          { src: mercedesWoods, alt: 'Mercedes in the woods' },
-          { src: mercedesGrill, alt: 'Mercedes Grill' },
-        ],
-      },
-      {
-        name: 'Project 2',
-        languages: ['Node.js', 'GraphQL'],
-        image: { src: mercedesGrill, alt: 'Mercedes Grill' },
-        slideShow: [
-          { src: mercedesGrill, alt: 'Mercedes Grill' },
-          { src: mercedesEmblem, alt: 'Mercedes Emblem' },
-          { src: mercedesOldCars, alt: 'Mercedes Old' },
-        ],
-      },
-      {
-        name: 'Project 3',
-        languages: ['Python'],
-        image: { src: mercedesEmblem, alt: 'Mercedes Emblem' },
-        slideShow: [
-          { src: mercedesEmblem, alt: 'Mercedes Emblem' },
-          { src: mercedesOldCars, alt: 'Mercedes Old' },
-        ],
+        image: { src: morganCash, alt: 'Morgan Stanley' },
+        slideShow: [{ src: morganCash, alt: 'Morgan Stanley' }],
       },
     ],
   },
   {
     name: 'Talitrix',
-    title: 'Sr_Software_Developer',
+    title: 'Senior Software Developer',
     projects: [
       {
-        name: 'Project 1',
+        name: 'Inside The Wall',
         languages: ['React', 'TypeScript'],
-        image: { src: porscheBehind, alt: 'Porsche' },
-        slideShow: [
-          { src: porscheBehind, alt: 'Porsche' },
-          { src: porscheRim, alt: 'Porsche' },
-          { src: porscheWheel, alt: 'Porsche' },
-        ],
-      },
-      {
-        name: 'Project 2',
-        languages: ['Node.js'],
-        image: { src: porscheRim, alt: 'Porsche' },
-        slideShow: [
-          { src: porscheRim, alt: 'Porsche' },
-          { src: porscheWheel, alt: 'Porsche' },
-        ],
+        image: { src: talitrix, alt: 'Talitrix' },
+        slideShow: [{ src: talitrix, alt: 'Talitrix' }],
       },
     ],
   },
   {
     name: 'Red Ventures',
-    title: 'Sr_Software_Engineer',
+    title: 'Senior Software Engineer',
     projects: [
       {
-        name: 'Project 1',
+        name: 'The Points Guy',
         languages: ['React'],
-        image: { src: carmaxOldCars, alt: 'CarMax' },
+        image: { src: pointsGuyBoat, alt: 'The Points Guy' },
         slideShow: [
-          { src: carmaxOldCars, alt: 'CarMax' },
-          { src: carmaxParkingLot, alt: 'CarMax' },
-        ],
-      },
-      {
-        name: 'Project 2',
-        languages: ['Angular'],
-        image: { src: carmaxParkingLot, alt: 'CarMax' },
-        slideShow: [
-          { src: carmaxParkingLot, alt: 'CarMax' },
-          { src: carmaxOldCars, alt: 'CarMax' },
+          { src: pointsGuyBoat, alt: 'The Points Guy' },
+          { src: pointsGuyIsland, alt: 'The Points Guy' },
+          { src: pointsGuyMountains, alt: 'The Points Guy' },
+          { src: pointsGuyWing, alt: 'The Points Guy' },
         ],
       },
     ],
   },
   {
     name: 'Porsche Digital',
-    title: 'Sr_Software_Engineer',
+    title: 'Senior Software Engineer',
     projects: [
       {
-        name: 'Project 1',
+        name: 'Buildshets',
         languages: ['React', 'TypeScript'],
-        image: { src: carmaxOldCars, alt: 'CarMax' },
+        image: { src: porscheBehind, alt: 'Porsche' },
         slideShow: [
-          { src: carmaxOldCars, alt: 'CarMax' },
-          { src: carmaxParkingLot, alt: 'CarMax' },
+          { src: porscheBlue, alt: 'Porsche' },
+          { src: porscheWoods, alt: 'Porsche' },
+          { src: porscheBehind, alt: 'Porsche' },
+          { src: porscheWheel, alt: 'Porsche' },
         ],
       },
       {
-        name: 'Project 2',
-        languages: ['Vue.js'],
-        image: { src: carmaxParkingLot, alt: 'CarMax' },
+        name: 'Track Your Dreams',
+        languages: ['React', 'TypeScript'],
+        image: { src: porscheBlue, alt: 'Porsche' },
         slideShow: [
-          { src: carmaxParkingLot, alt: 'CarMax' },
-          { src: carmaxOldCars, alt: 'CarMax' },
+          { src: porscheBlue, alt: 'Porsche' },
+          { src: porscheWoods, alt: 'Porsche' },
+          { src: porscheBehind, alt: 'Porsche' },
+          { src: porscheWheel, alt: 'Porsche' },
         ],
       },
     ],
   },
   {
     name: 'Captech Ventures',
-    title: 'Manager_Frontend_Development',
+    title: 'Manager, Frontend Development',
     projects: [
       {
-        name: 'Project 1',
+        name: 'Carmax',
         languages: ['Java', 'Spring'],
-        image: { src: carmaxOldCars, alt: 'CarMax' },
+        image: { src: carmaxOneCar, alt: 'CarMax' },
         slideShow: [
           { src: carmaxOldCars, alt: 'CarMax' },
+          { src: carmaxOneCar, alt: 'CarMax' },
           { src: carmaxParkingLot, alt: 'CarMax' },
+          { src: carmaxEmpty, alt: 'CarMax' },
+          { src: carmaxVintage, alt: 'CarMax' },
+          { src: carmaxSalesLot, alt: 'CarMax' },
         ],
       },
       {
-        name: 'Project 2',
+        name: 'Capital One',
         languages: ['React'],
-        image: { src: carmaxParkingLot, alt: 'CarMax' },
-        slideShow: [
-          { src: carmaxParkingLot, alt: 'CarMax' },
-          { src: carmaxOldCars, alt: 'CarMax' },
-        ],
+        image: { src: morganCash, alt: 'Capital One' },
+        slideShow: [{ src: morganCash, alt: 'Capital One' }],
       },
     ],
   },
   {
     name: 'Sapient Razorfish',
-    title: 'Presentation_Layer_Engineer',
+    title: 'Presentation Layer Engineer',
     projects: [
       {
-        name: 'Project 1',
+        name: 'Carmax',
         languages: ['JavaScript'],
-        image: { src: carmaxOldCars, alt: 'CarMax' },
+        image: { src: carmaxEmpty, alt: 'CarMax' },
         slideShow: [
           { src: carmaxOldCars, alt: 'CarMax' },
+          { src: carmaxOneCar, alt: 'CarMax' },
           { src: carmaxParkingLot, alt: 'CarMax' },
+          { src: carmaxEmpty, alt: 'CarMax' },
+          { src: carmaxVintage, alt: 'CarMax' },
+          { src: carmaxSalesLot, alt: 'CarMax' },
         ],
       },
       {
-        name: 'Project 2',
-        languages: ['HTML', 'CSS'],
-        image: { src: carmaxParkingLot, alt: 'CarMax' },
+        name: 'Mercedes',
+        languages: ['React', 'HTML', 'CSS'],
+        image: { src: mercedesGrill, alt: 'Mercedes' },
         slideShow: [
-          { src: carmaxParkingLot, alt: 'CarMax' },
-          { src: carmaxOldCars, alt: 'CarMax' },
+          { src: mercedesGrill, alt: 'Mercedes' },
+          { src: mercedesEmblem, alt: 'Mercedes' },
+          { src: mercedesG, alt: 'Mercedes G' },
+          { src: mercedesWoods, alt: 'Mercedes Woods' },
+          { src: mercedesOldCars, alt: 'Mercedes Old' },
         ],
       },
     ],
   },
   {
     name: 'Ogilvy& Mather',
-    title: 'UI_Developer',
+    title: 'UI Developer',
     projects: [
       {
-        name: 'Project 1',
+        name: 'Coca-Cola',
         languages: ['JavaScript', 'jQuery'],
-        image: { src: carmaxOldCars, alt: 'CarMax' },
+        image: { src: cokeBottleBW, alt: 'Coca Cola' },
         slideShow: [
-          { src: carmaxOldCars, alt: 'CarMax' },
-          { src: carmaxParkingLot, alt: 'CarMax' },
+          { src: cokeBottleBW, alt: 'Coca-Cola' },
+          { src: cokeVintage, alt: 'Coca-Cola' },
+          { src: cokeNeonSign, alt: 'Coca-Cola' },
+          { src: cokeRed, alt: 'Coca-Cola' },
         ],
       },
       {
-        name: 'Project 2',
+        name: 'IHG',
         languages: ['HTML', 'CSS'],
-        image: { src: carmaxParkingLot, alt: 'CarMax' },
+        image: { src: ihgPool, alt: 'IHG' },
         slideShow: [
-          { src: carmaxParkingLot, alt: 'CarMax' },
-          { src: carmaxOldCars, alt: 'CarMax' },
+          { src: ihgOceanResort, alt: 'IHG' },
+          { src: ihgPool, alt: 'IHG' },
+          { src: ihgPoolSide, alt: 'IHG' },
+          { src: ihgMexico, alt: 'IHG' },
         ],
       },
     ],
@@ -530,6 +536,7 @@ function BrandSection({ brand }: { brand: Brand }) {
   const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
   const [backgroundIndex, setBackgroundIndex] = useState<number | null>(null);
   const [closingMaskImage, setClosingMaskImage] = useState<string | null>(null);
+  const [isClosing, setIsClosing] = useState(false);
 
   const itemWidth = isLarge ? '10rem' : '5rem';
   const itemHeight = isLarge ? '35rem' : '18rem';
@@ -588,16 +595,22 @@ function BrandSection({ brand }: { brand: Brand }) {
       }, delay);
     };
 
-    run(maskDelay0, 0);
+    run(maskDelay0, slides.length > 1 ? 1 : 0);
     return () => ids.forEach(clearTimeout);
   }, [animationStage, selectedIndex, brand.projects]);
 
   const handleClose = (e: React.MouseEvent) => {
     e.preventDefault();
+    setIsClosing(true);
+    setIsMasking(false);
+    setBackgroundImage(null);
     setAnimationStage('contracting');
     setTimeout(() => {
       setAnimationStage('returning');
-      setTimeout(() => setSelectedIndex(null), 600);
+      setTimeout(() => {
+        setSelectedIndex(null);
+        setIsClosing(false);
+      }, 600);
     }, 800);
   };
 
@@ -677,7 +690,7 @@ function BrandSection({ brand }: { brand: Brand }) {
 
   return (
     <motion.div className="history-list--brand" ref={ref}>
-      {selectedIndex !== null && (
+      {selectedIndex !== null && !isClosing && (
         <button onClick={handleClose} className="brand-close-button">
           ×
         </button>
@@ -696,42 +709,51 @@ function BrandSection({ brand }: { brand: Brand }) {
         )}
       </BrandName>
 
-      {selectedIndex !== null && isMasking && (() => {
-        const maskImageUrl = closingMaskImage || brand.projects[selectedIndex].slideShow[currentSlideIndex]?.src;
-        return (
-          <h3 className="brand-mask-text">
-            {brand.name.split(' ').map((word, wi) => (
-              <span key={wi} style={{ display: 'block', whiteSpace: 'nowrap' }}>
-                {word.split('').map((ch, ci) => {
-                  const gi = brand.name.indexOf(word) + ci;
-                  return (
-                    <span
-                      key={ci}
-                      style={{
-                        display: 'inline-block',
-                        width: charWidths[gi] ? `${charWidths[gi]}px` : '0.55em',
-                        textAlign: 'center',
-                        overflow: 'hidden',
-                        position: 'relative',
-                        backgroundImage: `url(${maskImageUrl})`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                        backgroundAttachment: 'fixed',
-                        backgroundClip: 'text',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        color: 'transparent',
-                      }}
-                    >
-                      {ch}
-                    </span>
-                  );
-                })}
-              </span>
-            ))}
-          </h3>
-        );
-      })()}
+      {selectedIndex !== null &&
+        isMasking &&
+        (() => {
+          const maskImageUrl =
+            closingMaskImage ||
+            brand.projects[selectedIndex].slideShow[currentSlideIndex]?.src;
+          return (
+            <h3 className="brand-mask-text">
+              {brand.name.split(' ').map((word, wi) => (
+                <span
+                  key={wi}
+                  style={{ display: 'block', whiteSpace: 'nowrap' }}
+                >
+                  {word.split('').map((ch, ci) => {
+                    const gi = brand.name.indexOf(word) + ci;
+                    return (
+                      <span
+                        key={ci}
+                        style={{
+                          display: 'inline-block',
+                          width: charWidths[gi]
+                            ? `${charWidths[gi]}px`
+                            : '0.55em',
+                          textAlign: 'center',
+                          overflow: 'hidden',
+                          position: 'relative',
+                          backgroundImage: `url(${maskImageUrl})`,
+                          backgroundSize: 'cover',
+                          backgroundPosition: 'center',
+                          backgroundAttachment: 'fixed',
+                          backgroundClip: 'text',
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                          color: 'transparent',
+                        }}
+                      >
+                        {ch}
+                      </span>
+                    );
+                  })}
+                </span>
+              ))}
+            </h3>
+          );
+        })()}
 
       {brand.projects.map((project, index) => (
         <div key={index}>
@@ -776,6 +798,13 @@ function BrandSection({ brand }: { brand: Brand }) {
             <motion.img
               src={project.image.src}
               alt={project.image.alt}
+              className={
+                selectedIndex === index &&
+                (animationStage === 'expanding' ||
+                  animationStage === 'centering')
+                  ? 'history-list--bg'
+                  : undefined
+              }
               animate={{
                 opacity: backgroundImage && backgroundIndex === index ? 0 : 1,
               }}
@@ -798,7 +827,9 @@ function BrandSection({ brand }: { brand: Brand }) {
                       key={ci}
                       style={{
                         display: 'inline-block',
-                        width: charWidths[gi] ? `${charWidths[gi]}px` : '0.55em',
+                        width: charWidths[gi]
+                          ? `${charWidths[gi]}px`
+                          : '0.55em',
                         textAlign: 'center',
                         overflow: 'hidden',
                         position: 'relative',
@@ -821,7 +852,7 @@ function History() {
   return (
     <section className="container history">
       <h2 className="my-2 ml-2">
-        {'CLIENTS'.split('').map((ch, i) => (
+        {'WORK HISTORY'.split('').map((ch, i) => (
           <span key={i}>{ch}</span>
         ))}
       </h2>

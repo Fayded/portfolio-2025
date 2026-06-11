@@ -1,4 +1,8 @@
-import { AnimatePresence, motion, useInView } from 'framer-motion';
+import {
+  AnimatePresence,
+  motion,
+  useInView,
+} from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import './styles/work.scss';
 
@@ -9,6 +13,14 @@ import mercedesOldCars from './assets/mercedes-old-cars.jpg';
 import mercedesGrill from './assets/mercedes-grill.jpg';
 import carmaxOldCars from './assets/carmax-old-cars.jpg';
 import carmaxParkingLot from './assets/carmax-parking.jpg';
+import carmaxOneCar from './assets/carmax-one-car.jpg';
+import carmaxEmpty from './assets/carmax-empty.jpg';
+import carmaxVintage from './assets/carmax-vintage.jpg';
+import carmaxSalesLot from './assets/carmax-sales-lot.jpg';
+import pointsGuyBoat from './assets/points-guy-boat.jpg';
+import pointsGuyIsland from './assets/points-guy-island.jpg';
+import pointsGuyMountains from './assets/points-guy-mountains.jpg';
+import pointsGuyWing from './assets/points-guy-wing.jpg';
 import porscheBehind from './assets/porsche-behind.jpg';
 import porscheRim from './assets/porsche-rim.jpg';
 import porscheWheel from './assets/porsche-steering-wheel.jpg';
@@ -59,6 +71,19 @@ const brands: Brand[] = [
     ],
   },
   {
+    name: 'red ventures',
+    images: [
+      { src: carmaxOldCars, alt: 'CarMax' },
+      { src: carmaxParkingLot, alt: 'CarMax' },
+    ],
+    slideShow: [
+      { src: pointsGuyBoat, alt: 'The Points Guy' },
+      { src: pointsGuyIsland, alt: 'The Points Guy' },
+      { src: pointsGuyMountains, alt: 'The Points Guy' },
+      { src: pointsGuyWing, alt: 'The Points Guy' },
+    ],
+  },
+  {
     name: 'carmax',
     images: [
       { src: carmaxOldCars, alt: 'CarMax' },
@@ -66,7 +91,11 @@ const brands: Brand[] = [
     ],
     slideShow: [
       { src: carmaxOldCars, alt: 'CarMax' },
+      { src: carmaxOneCar, alt: 'CarMax' },
       { src: carmaxParkingLot, alt: 'CarMax' },
+      { src: carmaxEmpty, alt: 'CarMax' },
+      { src: carmaxVintage, alt: 'CarMax' },
+      { src: carmaxSalesLot, alt: 'CarMax' },
     ],
   },
 ];
@@ -81,15 +110,11 @@ const TIMING = {
 };
 
 function Work() {
-  const title = 'CLIENTS';
+  const title = 'CLIENT WORK';
 
   return (
     <section className="container work">
-      <h2 className="my-2 ml-2">
-        {title.split('').map((char, index) => (
-          <span key={index}>{char}</span>
-        ))}
-      </h2>
+      <h2 className="my-2 ml-2">{title}</h2>
       <div className="work-list">
         {brands.map((brand) => (
           <BrandSection key={brand.name} brand={brand} />
@@ -130,7 +155,8 @@ function BrandSection({ brand }: { brand: Brand }) {
   const [isLargeViewport, setIsLargeViewport] = useState(
     typeof window !== 'undefined' ? window.innerWidth >= 1024 : false
   );
-  const isInView = useInView(ref, { once: false, amount: 0.8 });
+  const savedOriginRef = useRef<{ left: number; top: number } | null>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.8 });
 
   const itemWidth = isLargeViewport ? '17rem' : '8rem';
   const itemHeight = isLargeViewport ? '40rem' : '20rem';
@@ -151,10 +177,12 @@ function BrandSection({ brand }: { brand: Brand }) {
       setCurrentSlideIndex(0);
       setIsMasking(false);
       setClosingMaskImage(null);
+      setBackgroundImage(null);
       return;
     }
 
     setBackgroundIndex(selectedIndex);
+    setBackgroundImage(null);
 
     const element = ref.current;
     const elementTop = element.getBoundingClientRect().top + window.scrollY;
@@ -184,54 +212,90 @@ function BrandSection({ brand }: { brand: Brand }) {
       timeoutIds.push(window.setTimeout(callback, delay));
     };
 
-    const runSlideshow = (maskDelay: number, slideIndex: number) => {
+    const findNextDifferent = (startIndex: number, currentSrc: string) => {
+      for (let i = 0; i < slideShowImages.length; i++) {
+        const idx = (startIndex + i) % slideShowImages.length;
+        if (slideShowImages[idx].src !== currentSrc) return idx;
+      }
+      return -1;
+    };
+
+    const runSlideshow = (
+      maskDelay: number,
+      slideIndex: number,
+      currentSrc: string
+    ) => {
+      const nextIndex = findNextDifferent(slideIndex, currentSrc);
+      if (nextIndex === -1) return;
+
       queueTimeout(() => {
-        setCurrentSlideIndex(slideIndex);
+        setCurrentSlideIndex(nextIndex);
         setIsMasking(true);
 
         queueTimeout(() => {
-          setBackgroundImage(slideShowImages[slideIndex].src);
+          setBackgroundImage(slideShowImages[nextIndex].src);
 
           queueTimeout(() => {
             setIsMasking(false);
             runSlideshow(
               TIMING.loopMaskDelay,
-              (slideIndex + 1) % slideShowImages.length
+              (nextIndex + 1) % slideShowImages.length,
+              slideShowImages[nextIndex].src
             );
           }, TIMING.backgroundTransitionDuration);
         }, backgroundSwapDelay);
       }, maskDelay);
     };
 
-    runSlideshow(initialMaskDelay, 0);
+    runSlideshow(initialMaskDelay, 0, brand.images[selectedIndex].src);
     return () => timeoutIds.forEach(clearTimeout);
   }, [animationStage, selectedIndex, brand.slideShow]);
 
   const handleImageClick = (index: number, e: React.MouseEvent) => {
     e.preventDefault();
-    setSelectedIndex(selectedIndex === index ? null : index);
+    if (selectedIndex === index) {
+      setSelectedIndex(null);
+    } else {
+      const anchor = e.currentTarget as HTMLElement;
+      const rect = anchor.getBoundingClientRect();
+      const parentRect = ref.current?.getBoundingClientRect();
+      if (parentRect) {
+        savedOriginRef.current = {
+          left: rect.left - parentRect.left,
+          top: rect.top - parentRect.top,
+        };
+      }
+      setSelectedIndex(index);
+    }
   };
+
+  const [isClosing, setIsClosing] = useState(false);
 
   const handleClose = (e: React.MouseEvent) => {
     e.preventDefault();
+    setIsClosing(true);
     setAnimationStage('contracting');
 
     setTimeout(() => {
       setAnimationStage('returning');
-      setTimeout(() => setSelectedIndex(null), 600);
+      setTimeout(() => {
+        setSelectedIndex(null);
+        setIsClosing(false);
+      }, 600);
     }, 800);
   };
 
   const getAnimationState = (index: number) => {
     const isLeft = index === 0;
     const baseRotation = isLeft ? 10 : -10;
-    const basePosition = {
-      left: isLeft ? '10%' : 'auto',
-      right: isLeft ? 'auto' : '10%',
-      y: '-50%',
-      rotate: baseRotation,
-      zIndex: 1,
-    };
+    const restLeft = isLeft
+      ? isInView
+        ? '10%'
+        : '7%'
+      : isInView
+        ? '90%'
+        : '93%';
+    const restX = isLeft ? 0 : '-100%';
 
     if (isSelected(index)) {
       const centered = {
@@ -252,9 +316,12 @@ function BrandSection({ brand }: { brand: Brand }) {
           return { ...centered, width: itemWidth, height: itemHeight };
         case 'returning':
           return {
-            ...basePosition,
+            left: restLeft,
             top: '50%',
-            x: 0,
+            x: restX,
+            y: '-50%',
+            rotate: baseRotation,
+            zIndex: 1,
             width: itemWidth,
             height: itemHeight,
             opacity: 1,
@@ -265,6 +332,8 @@ function BrandSection({ brand }: { brand: Brand }) {
 
     if (selectedIndex !== null) {
       return {
+        left: restLeft,
+        x: restX,
         opacity: 0,
         scale: 0.8,
         y: '-50%',
@@ -274,13 +343,15 @@ function BrandSection({ brand }: { brand: Brand }) {
     }
 
     return {
-      ...basePosition,
+      left: restLeft,
+      x: restX,
+      y: isInView ? '-50%' : '100%',
+      rotate: isInView ? baseRotation : 0,
+      zIndex: 1,
       opacity: 1,
       scale: 1,
       width: itemWidth,
       height: itemHeight,
-      left: isLeft ? (isInView ? '10%' : '7%') : 'auto',
-      right: isLeft ? 'auto' : isInView ? '10%' : '7%',
     };
   };
 
@@ -297,7 +368,9 @@ function BrandSection({ brand }: { brand: Brand }) {
 
   return (
     <motion.div className="work-list--brand" ref={ref}>
-      {selectedIndex !== null && <CloseButton onClick={handleClose} />}
+      {selectedIndex !== null && !isClosing && (
+        <CloseButton onClick={handleClose} />
+      )}
       <h3>{brand.name}</h3>
 
       {selectedIndex !== null && isMasking && (
@@ -318,28 +391,54 @@ function BrandSection({ brand }: { brand: Brand }) {
             className="work-list--item"
             onClick={(e) => handleImageClick(index, e)}
             style={{
-              backgroundImage: hasBackground(index)
-                ? `url(${backgroundImage})`
-                : undefined,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}
             initial={false}
             animate={getAnimationState(index)}
-            transition={{
-              duration: getTransitionDuration(),
-              ease: [0.4, 0, 0.2, 1],
-              delay: selectedIndex !== null ? 0 : index * 0.1,
-            }}
+            transition={
+              selectedIndex === null
+                ? {
+                    type: 'spring',
+                    bounce: 0.4,
+                    duration: 0.8,
+                    delay: index * 0.1,
+                  }
+                : {
+                    duration: getTransitionDuration(),
+                    ease: [0.4, 0, 0.2, 1],
+                  }
+            }
             whileHover={
               selectedIndex === null
                 ? { scale: 1.05, transition: { duration: 0.3 } }
                 : {}
             }
           >
+            <AnimatePresence>
+              {backgroundImage && backgroundIndex === index && (
+                <motion.img
+                  key={backgroundImage}
+                  src={backgroundImage}
+                  alt=""
+                  className="work-list--bg"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.6, ease: 'easeOut' }}
+                />
+              )}
+            </AnimatePresence>
             <motion.img
               src={image.src}
               alt={image.alt}
+              className={
+                isSelected(index) &&
+                (animationStage === 'expanding' ||
+                  animationStage === 'centering')
+                  ? 'work-list--bg'
+                  : undefined
+              }
               animate={{ opacity: hasBackground(index) ? 0 : 1 }}
               transition={{
                 duration:
