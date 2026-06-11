@@ -1,34 +1,77 @@
-@use './_variables';
+@use './_variables' as *;
 @use './_grid';
 
-.work {
-  min-height: 100vh;
-}
-
-.work h3 {
-  font-family: var(--font-anton);
-  color: var(--color-white);
-  font-size: 23rem;
-  line-height: 1;
-  margin: 0;
-  text-transform: uppercase;
-  text-indent: -0.9rem;
-}
-
 .marks {
-  &-selected {
-    background: white;
-    .marks-item {
-      display: block;
-      padding: 1  2rem 0;
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+
+  h2 {
+    grid-column: 2 / 24;
+    color: var(--color-white);
+    display: flex;
+    font-family: 'Gotham', Avenir, sans-serif;
+    font-size: 0.875rem;
+    justify-content: space-between;
+    line-height: 1;
+
+    @media (min-width: $bp-md) {
+      font-size: 1.125rem;
+    }
+
+    @media (min-width: $bp-lg) {
+      font-size: 1.5rem;
     }
   }
-  &-item {
-    cursor: pointer;
-    padding: 0 40px;
-    text-align: center;
+
+  > .grid {
+    grid-column: 2 / 24;
   }
+
+  &-selected {
+    background: white;
+
+    .marks-item {
+      display: block;
+      padding: 1rem 1rem 0;
+
+      @media (min-width: $bp-md) {
+        padding: 1rem 2rem 0;
+      }
+    }
+  }
+
+  &-item {
+    &--container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      text-align: center;
+      padding: 2rem;
+
+      &:nth-child(odd) {
+        background: #3d63cd;
+      }
+      svg {
+        max-width: 90%;
+      }
+    }
+  }
+
   &-image {
-    max-height: 210px;
+    max-height: 100px;
+
+    @media (min-width: $bp-sm) {
+      max-height: 140px;
+    }
+
+    @media (min-width: $bp-md) {
+      max-height: 180px;
+    }
+
+    @media (min-width: $bp-lg) {
+      max-height: 210px;
+    }
   }
 }

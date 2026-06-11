@@ -2,18 +2,46 @@
 
 @font-face {
   font-family: 'Gotham';
-  src: url('../fonts/gotham-book.woff2') format('woff2'),
+  src:
+    url('../fonts/gotham-book.woff2') format('woff2'),
     url('../fonts/gotham-book.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Gotham-bold';
+  src:
+    url('../fonts/gotham-bold.woff2') format('woff2'),
+    url('../fonts/gotham-bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'FKRoman';
+  src: url('../fonts/FKRomanStandard.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+// Breakpoints (mobile-first)
+$bp-sm: 576px;
+$bp-md: 768px;
+$bp-lg: 992px;
+$bp-xl: 1200px;
+$bp-xxl: 1400px;
+
 :root {
   /* Fonts */
   --font-antonio: 'Antonio', 'Anton', Avenir, sans-serif;
   --font-anton: 'Anton', 'Antonio', Avenir, sans-serif;
+  --font-fkroman: 'FKRoman', Avenir, sans-serif;
+  --font-gotham: 'Gotham', Avenir, sans-serif;
+  --font-gotham-bold: 'Gotham-bold', Avenir, sans-serif;
 
   /* Colors */
+  --color-dark: #3d63cd;
   --color-primary: #4b71d8;
   --color-pink: #ffb8f6;
   --color-yellow: #e1ff69;

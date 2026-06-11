@@ -3,7 +3,8 @@ import type { RefObject } from 'react';
 import { gsap } from 'gsap';
 
 export const useTitleAnimation = (
-  h1Ref: RefObject<HTMLHeadingElement | null>
+  h1Ref: RefObject<HTMLHeadingElement | null>,
+  onComplete?: () => void
 ) => {
   useEffect(() => {
     if (!h1Ref.current) return;
@@ -122,6 +123,7 @@ export const useTitleAnimation = (
           ease: 'power2.inOut',
         });
 
+<<<<<<< HEAD
       // After 10 seconds, reverse all animations back along same path
       tl2.then(() => {
         setTimeout(() => {
@@ -203,7 +205,53 @@ export const useTitleAnimation = (
               });
           });
         }, 2000);
+=======
+      // After scatter completes, reverse each letter's path step by step
+      tl4.then(() => {
+        setTimeout(() => {
+          // Reverse Phase 2: A, Y, C retrace their paths
+          // A went: x→center, y→top. Reverse: y→0, x→0
+          gsap
+            .timeline()
+            .to(secondChar, { y: 0, duration: 0.7, ease: 'power2.inOut' })
+            .to(secondChar, { x: 0, duration: 0.7, ease: 'power2.inOut' });
+
+          // Y went: y→top, x→right. Reverse: x→0, y→0
+          gsap
+            .timeline()
+            .to(thirdChar, { x: 0, duration: 0.7, ease: 'power2.inOut' })
+            .to(thirdChar, { y: 0, duration: 0.7, ease: 'power2.inOut' });
+
+          // C went: y→bottom, x→leftQuarter. Reverse: x→0, y→0
+          const reversePhase2 = gsap
+            .timeline()
+            .to(fourthChar, { x: 0, duration: 0.7, ease: 'power2.inOut' })
+            .to(fourthChar, { y: 0, duration: 0.7, ease: 'power2.inOut' });
+
+          reversePhase2.then(() => {
+            // Reverse Phase 1: F and O retrace their paths
+            // F went: x→left, y→top. Reverse: y→0, x→0
+            gsap
+              .timeline()
+              .to(firstChar, { y: 0, duration: 0.7, ease: 'power2.inOut' })
+              .to(firstChar, { x: 0, duration: 0.7, ease: 'power2.inOut' });
+
+            // O went: x→right, y→bottom, x→3/4. Reverse: x→right, y→0, x→0
+            const reverseO = gsap
+              .timeline()
+              .to(lastChar, {
+                x: lastToRight,
+                duration: 0.7,
+                ease: 'power2.inOut',
+              })
+              .to(lastChar, { y: 0, duration: 0.7, ease: 'power2.inOut' })
+              .to(lastChar, { x: 0, duration: 0.7, ease: 'power2.inOut' });
+
+            reverseO.then(() => onComplete?.());
+          });
+        }, 1500);
+>>>>>>> main
       });
     });
-  }, [h1Ref]);
+  }, [h1Ref, onComplete]);
 };
