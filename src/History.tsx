@@ -245,8 +245,8 @@ function useScrambleText(name: string) {
   const [isHovered, setIsHovered] = useState(false);
   const [letters, setLetters] = useState<string[]>(() => name.split(''));
   const timers = useRef<{
-    intervals: Record<number, NodeJS.Timeout>;
-    timeouts: NodeJS.Timeout[];
+    intervals: Record<number, ReturnType<typeof setInterval>>;
+    timeouts: ReturnType<typeof setTimeout>[];
   }>({
     intervals: {},
     timeouts: [],
@@ -356,8 +356,8 @@ function BrandTitle({
   const [active, setActive] = useState(false);
   const [scrambledChars, setScrambledChars] = useState<string[]>([]);
   const timers = useRef<{
-    intervals: Record<number, NodeJS.Timeout>;
-    timeouts: NodeJS.Timeout[];
+    intervals: Record<number, ReturnType<typeof setInterval>>;
+    timeouts: ReturnType<typeof setTimeout>[];
   }>({ intervals: {}, timeouts: [] });
 
   useEffect(() => {
