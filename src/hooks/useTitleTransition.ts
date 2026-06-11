@@ -123,89 +123,6 @@ export const useTitleAnimation = (
           ease: 'power2.inOut',
         });
 
-<<<<<<< HEAD
-      // After 10 seconds, reverse all animations back along same path
-      tl2.then(() => {
-        setTimeout(() => {
-          // Reverse A first: center top -> center center
-          const tlARev = gsap
-            .timeline()
-            .to(secondChar, {
-              y: 0,
-              duration: 0.4,
-              ease: 'power2.inOut',
-            })
-            .to(secondChar, {
-              x: 0,
-              duration: 0.4,
-              ease: 'power2.inOut',
-            });
-
-          // Reverse Y: far right top -> center top -> center
-          gsap
-            .timeline()
-            .to(thirdChar, {
-              x: 0,
-              duration: 0.4,
-              ease: 'power2.inOut',
-            })
-            .to(thirdChar, {
-              y: 0,
-              duration: 0.4,
-              ease: 'power2.inOut',
-            });
-
-          // Reverse C: 1/4 bottom -> center bottom -> center
-          gsap
-            .timeline()
-            .to(fourthChar, {
-              x: 0,
-              duration: 0.4,
-              ease: 'power2.inOut',
-            })
-            .to(fourthChar, {
-              y: 0,
-              duration: 0.4,
-              ease: 'power2.inOut',
-            });
-
-          // After A, Y, C finish, reverse F and O last
-          tlARev.then(() => {
-            // Reverse F: top left -> center top -> center center
-            gsap
-              .timeline()
-              .to(firstChar, {
-                y: 0,
-                duration: 0.4,
-                ease: 'power2.inOut',
-              })
-              .to(firstChar, {
-                x: 0,
-                duration: 0.4,
-                ease: 'power2.inOut',
-              });
-
-            // Reverse O: 3/4 bottom -> far right bottom -> far right center -> center
-            gsap
-              .timeline()
-              .to(lastChar, {
-                x: lastToRight,
-                duration: 0.4,
-                ease: 'power2.inOut',
-              })
-              .to(lastChar, {
-                y: 0,
-                duration: 0.4,
-                ease: 'power2.inOut',
-              })
-              .to(lastChar, {
-                x: 0,
-                duration: 0.4,
-                ease: 'power2.inOut',
-              });
-          });
-        }, 2000);
-=======
       // After scatter completes, reverse each letter's path step by step
       tl4.then(() => {
         setTimeout(() => {
@@ -250,7 +167,6 @@ export const useTitleAnimation = (
             reverseO.then(() => onComplete?.());
           });
         }, 1500);
->>>>>>> main
       });
     });
   }, [h1Ref, onComplete]);
