@@ -35,11 +35,11 @@
     display: flex;
     flex-direction: column;
     font-family: var(--font-anton);
-    font-size: 5rem;
+    font-size: 3rem;
     height: 100vh;
     justify-content: center;
     line-height: 1;
-    letter-spacing: 8px;
+    letter-spacing: 4px;
     margin: 0;
     position: absolute;
     text-align: center;
@@ -48,8 +48,8 @@
     pointer-events: none;
 
     @media (min-width: $bp-sm) {
-      font-size: 6rem;
-      letter-spacing: 8px;
+      font-size: 4.5rem;
+      letter-spacing: 6px;
     }
 
     @media (min-width: $bp-md) {
@@ -94,16 +94,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 5rem;
+    font-size: 3rem;
     font-family: var(--font-anton);
     text-transform: uppercase;
-    letter-spacing: 8px;
+    letter-spacing: 4px;
     margin: 0;
     line-height: 1;
 
     @media (min-width: $bp-sm) {
-      font-size: 6rem;
-      letter-spacing: 8px;
+      font-size: 4.5rem;
+      letter-spacing: 6px;
     }
 
     @media (min-width: $bp-md) {
@@ -126,18 +126,24 @@
     color: var(--color-white);
     display: flex;
     font-family: 'Gotham', Avenir, sans-serif;
-    font-size: 0.875rem;
+    font-size: 0.625rem;
     justify-content: space-between;
     line-height: 1;
     width: 94vw;
     margin: 0 auto;
     padding: 0 1rem;
-    letter-spacing: 200%;
+    letter-spacing: 100%;
+
+    @media (min-width: $bp-sm) {
+      font-size: 0.75rem;
+      letter-spacing: 150%;
+    }
 
     @media (min-width: $bp-md) {
       font-size: 1.125rem;
       width: 96vw;
       padding: 0;
+      letter-spacing: 200%;
     }
 
     @media (min-width: $bp-lg) {
@@ -154,17 +160,30 @@
     }
 
     &--item {
+      box-shadow: none;
       cursor: pointer;
       display: block;
-      width: 10rem;
-      height: 20rem;
+      width: 6rem;
+      height: 14rem;
       overflow: hidden;
       position: absolute;
       pointer-events: auto;
       text-align: center;
       top: 50%;
-      transform: translateY(-50%) rotate(-10deg);
-      z-index: 11;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-5deg);
+      transition: none;
+      z-index: 1;
+
+      @media (min-width: $bp-sm) {
+        width: 8rem;
+        height: 18rem;
+      }
+
+      @media (min-width: $bp-md) {
+        width: 10rem;
+        height: 20rem;
+      }
 
       @media (min-width: 1024px) {
         width: 17rem;
@@ -172,7 +191,9 @@
       }
 
       &:last-child {
-        transform: translateY(-50%) rotate(10deg);
+        left: calc(50% + 50px);
+        transform: translate(-50%, -50%) rotate(5deg);
+        z-index: 2;
       }
 
       img {

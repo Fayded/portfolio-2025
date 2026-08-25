@@ -17,20 +17,26 @@
     color: var(--color-white);
     display: flex;
     font-family: 'Gotham', Avenir, sans-serif;
-    font-size: 0.875rem;
+    font-size: 0.625rem;
     justify-content: space-between;
     line-height: 1;
     width: 94vw;
     margin: 0 auto;
     padding: 0 1rem;
-    letter-spacing: 200%;
+    letter-spacing: 100%;
     z-index: 3;
     position: relative;
+
+    @media (min-width: $bp-sm) {
+      font-size: 0.75rem;
+      letter-spacing: 150%;
+    }
 
     @media (min-width: $bp-md) {
       font-size: 1.125rem;
       width: 96vw;
       padding: 0;
+      letter-spacing: 200%;
     }
 
     @media (min-width: $bp-lg) {

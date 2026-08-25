@@ -9,28 +9,44 @@
   font-family: var(--font-antonio);
   font-weight: 100;
   background-color: var(--color-dark);
-  padding: 2rem 1rem 2rem;
+  padding: 1.5rem 1rem;
 
   @media (min-width: $bp-md) {
-    padding: 3rem 2rem 3rem;
+    padding: 3rem 2rem;
   }
 
   @media (min-width: $bp-lg) {
-    padding: 4rem 3rem 4rem;
+    padding: 4rem 3rem;
   }
 }
 
 .location {
-  grid-column: 2 / span 18;
+  grid-column: 1 / -1;
+  padding: 0 0.5rem;
+
+  @media (min-width: $bp-md) {
+    grid-column: 2 / span 18;
+    padding: 0;
+  }
 
   p {
     display: flex;
     justify-content: space-between;
     font-family: var(--font-gotham);
-    font-size: 1.2rem;
-    letter-spacing: 204%;
+    font-size: 0.75rem;
+    letter-spacing: 100%;
     line-height: 1;
     text-transform: uppercase;
+
+    @media (min-width: $bp-sm) {
+      font-size: 0.875rem;
+      letter-spacing: 150%;
+    }
+
+    @media (min-width: $bp-md) {
+      font-size: 1.2rem;
+      letter-spacing: 204%;
+    }
   }
 
   span {
@@ -43,23 +59,54 @@
   }
 
   p:first-child {
-    font-size: 2rem;
-    letter-spacing: 99%;
+    font-size: 1rem;
+    letter-spacing: 50%;
+
+    @media (min-width: $bp-sm) {
+      font-size: 1.25rem;
+      letter-spacing: 70%;
+    }
+
+    @media (min-width: $bp-md) {
+      font-size: 2rem;
+      letter-spacing: 99%;
+    }
   }
 }
 
 .flag {
-  grid-column: 21 / span 3;
-  width: 100%;
+  display: none;
+
+  @media (min-width: $bp-md) {
+    display: block;
+    grid-column: 21 / span 3;
+    width: 100%;
+  }
 }
 
 h2 {
   font-family: var(--font-gotham-bold);
-  font-size: 20.75rem;
+  font-size: 4.5rem;
   line-height: 1;
   color: var(--color-white);
   letter-spacing: 11%;
   margin: 0;
+
+  @media (min-width: $bp-sm) {
+    font-size: 7rem;
+  }
+
+  @media (min-width: $bp-md) {
+    font-size: 11rem;
+  }
+
+  @media (min-width: $bp-lg) {
+    font-size: 15rem;
+  }
+
+  @media (min-width: $bp-xl) {
+    font-size: 20.75rem;
+  }
 }
 
 .contact-bottom {
@@ -77,59 +124,127 @@ h2 {
 }
 
 .name {
-  grid-column: 2 / span 22;
+  grid-column: 1 / -1;
   margin-left: -0.05em;
+
+  @media (min-width: $bp-md) {
+    grid-column: 2 / span 22;
+  }
 }
 
 .email {
-  grid-column: 2 / span 11;
+  grid-column: 1 / -1;
   font-family: var(--font-gotham);
-  font-size: 2rem;
+  font-size: 1rem;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
   color: var(--color-white);
-  letter-spacing: 18%;
+  letter-spacing: 8%;
+  padding: 0 0.5rem;
+
+  @media (min-width: $bp-sm) {
+    font-size: 1.25rem;
+    letter-spacing: 12%;
+  }
+
+  @media (min-width: $bp-md) {
+    grid-column: 2 / span 11;
+    font-size: 2rem;
+    gap: 0.75rem;
+    letter-spacing: 18%;
+    padding: 0;
+  }
 }
 
 .website {
-  grid-column: 13 / span 11;
+  grid-column: 1 / -1;
   font-family: var(--font-gotham);
-  font-size: 2rem;
+  font-size: 1rem;
   color: var(--color-white);
   display: flex;
   align-items: center;
-  letter-spacing: 12%;
+  letter-spacing: 6%;
+  padding: 0 0.5rem;
+
+  @media (min-width: $bp-sm) {
+    font-size: 1.25rem;
+    letter-spacing: 8%;
+  }
+
+  @media (min-width: $bp-md) {
+    grid-column: 13 / span 11;
+    font-size: 2rem;
+    letter-spacing: 12%;
+    padding: 0;
+  }
 }
 
 .country-code {
-  grid-column: 2 / span 11;
+  grid-column: 1 / -1;
   font-family: var(--font-gotham);
-  font-size: 2rem;
+  font-size: 1rem;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
   color: var(--color-white);
   letter-spacing: 4%;
+  padding: 0 0.5rem;
+
+  @media (min-width: $bp-sm) {
+    font-size: 1.25rem;
+  }
+
+  @media (min-width: $bp-md) {
+    grid-column: 2 / span 11;
+    font-size: 2rem;
+    gap: 0.75rem;
+    padding: 0;
+  }
 }
 
 .phone {
-  grid-column: 13 / span 11;
+  grid-column: 1 / -1;
   font-family: var(--font-gotham);
-  font-size: 2rem;
+  font-size: 1rem;
   color: var(--color-white);
   display: flex;
   align-items: center;
   letter-spacing: 4%;
+  padding: 0 0.5rem;
+
+  @media (min-width: $bp-sm) {
+    font-size: 1.25rem;
+  }
+
+  @media (min-width: $bp-md) {
+    grid-column: 13 / span 11;
+    font-size: 2rem;
+    padding: 0;
+  }
 }
 
 .socials {
-  grid-column: 2 / span 18;
+  grid-column: 1 / -1;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 0.25rem;
   font-family: var(--font-antonio);
-  font-size: 1.5rem;
+  font-size: 1rem;
+
+  @media (min-width: $bp-md) {
+    grid-column: 2 / span 18;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 0;
+    font-size: 1.25rem;
+  }
+
+  @media (min-width: $bp-lg) {
+    font-size: 1.5rem;
+  }
 
   a {
     color: var(--color-white);
@@ -137,9 +252,22 @@ h2 {
     text-decoration: none;
     font-weight: 100;
     text-transform: uppercase;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     transition: all 0.2s ease;
-    padding: 1.5rem 3.125rem;
+    padding: 0.75rem 1rem;
+
+    @media (min-width: $bp-sm) {
+      padding: 0.75rem 1.25rem;
+    }
+
+    @media (min-width: $bp-md) {
+      letter-spacing: 3px;
+      padding: 1rem 1.5rem;
+    }
+
+    @media (min-width: $bp-lg) {
+      padding: 1.5rem 3.125rem;
+    }
 
     &:hover {
       background-color: var(--color-white);
@@ -149,16 +277,31 @@ h2 {
 }
 
 div.socials-hire {
-  margin-top: 100px;
+  margin-top: 2rem;
+
+  @media (min-width: $bp-md) {
+    margin-top: 3rem;
+  }
+
+  @media (min-width: $bp-lg) {
+    margin-top: 100px;
+  }
 }
 
 .hire {
-  grid-column: 20 / span 4;
+  grid-column: 1 / -1;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   font-weight: 100;
   font-family: var(--font-antonio);
+  margin-top: 1rem;
+
+  @media (min-width: $bp-md) {
+    grid-column: 20 / span 4;
+    justify-content: flex-end;
+    margin-top: 0;
+  }
 
   a {
     background-color: transparent;
@@ -169,10 +312,20 @@ div.socials-hire {
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 2px;
-    padding: 1.5rem 3.125rem;
+    padding: 1rem 2rem;
     border: 2px solid var(--color-white);
     transition: all 0.2s ease;
-    font-size: 1.5rem;
+    font-size: 1rem;
+
+    @media (min-width: $bp-md) {
+      padding: 1.25rem 2.5rem;
+      font-size: 1.25rem;
+    }
+
+    @media (min-width: $bp-lg) {
+      padding: 1.5rem 3.125rem;
+      font-size: 1.5rem;
+    }
 
     &:hover {
       background-color: var(--color-white);
