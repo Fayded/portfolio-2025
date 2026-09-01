@@ -15,7 +15,7 @@ import carmaxOldCars from './assets/carmax-old-cars.jpg';
 import carmaxParkingLot from './assets/carmax-parking.jpg';
 import carmaxOneCar from './assets/carmax-one-car.jpg';
 import carmaxEmpty from './assets/carmax-empty.jpg';
-import carmaxVintage from './assets/carmax-vintage.jpg';
+import carmaxMissing from './assets/carmax-missing.jpg';
 import carmaxSalesLot from './assets/carmax-sales-lot.jpg';
 import pointsGuyBoat from './assets/points-guy-boat.jpg';
 import pointsGuyIsland from './assets/points-guy-island.jpg';
@@ -71,10 +71,10 @@ const brands: Brand[] = [
     ],
   },
   {
-    name: 'red ventures',
+    name: 'the points guy',
     images: [
-      { src: carmaxOldCars, alt: 'CarMax' },
-      { src: carmaxParkingLot, alt: 'CarMax' },
+      { src: pointsGuyBoat, alt: 'The Points Guy' },
+      { src: pointsGuyIsland, alt: 'The Points Guy' },
     ],
     slideShow: [
       { src: pointsGuyBoat, alt: 'The Points Guy' },
@@ -87,14 +87,14 @@ const brands: Brand[] = [
     name: 'carmax',
     images: [
       { src: carmaxOldCars, alt: 'CarMax' },
-      { src: carmaxParkingLot, alt: 'CarMax' },
+      { src: carmaxOneCar, alt: 'CarMax' },
     ],
     slideShow: [
       { src: carmaxOldCars, alt: 'CarMax' },
       { src: carmaxOneCar, alt: 'CarMax' },
       { src: carmaxParkingLot, alt: 'CarMax' },
       { src: carmaxEmpty, alt: 'CarMax' },
-      { src: carmaxVintage, alt: 'CarMax' },
+      { src: carmaxMissing, alt: 'CarMax' },
       { src: carmaxSalesLot, alt: 'CarMax' },
     ],
   },

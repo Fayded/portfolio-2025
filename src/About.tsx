@@ -1,4 +1,4 @@
-import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValueEvent, MotionValue } from 'framer-motion';
 import { useRef, useState, useEffect, useCallback } from 'react';
 
 function useScrollInView(
@@ -19,12 +19,13 @@ function useScrollInView(
 }
 import './styles/about.scss';
 
-import handsImg from './assets/hands.png';
-import porscheBehind from './assets/porsche-behind.jpg';
-import mercedesG from './assets/mercedes-g.jpg';
-import carmaxOldCars from './assets/carmax-old-cars.jpg';
-import pointsGuyBoat from './assets/points-guy-boat.jpg';
-import porscheRim from './assets/porsche-rim.jpg';
+import handshakeData from './assets/handshake.json';
+
+import designInspiration1 from './assets/design-inspiration-1.png';
+import designInspiration2 from './assets/design-inspiration-2.png';
+import designInspiration3 from './assets/design-inspiration-3.png';
+import designInspiration5 from './assets/design-inspiration-5.png';
+
 
 interface ProcessSection {
   number: string;
@@ -72,10 +73,10 @@ const sections: ProcessSection[] = [
 ];
 
 const inspirationCards = [
-  { src: porscheBehind, alt: 'Inspiration 1' },
-  { src: mercedesG, alt: 'Inspiration 2' },
-  { src: carmaxOldCars, alt: 'Inspiration 3' },
-  { src: pointsGuyBoat, alt: 'Inspiration 4' },
+  { src: designInspiration1, alt: 'Inspiration 1' },
+  { src: designInspiration3, alt: 'Inspiration 3' },
+  { src: designInspiration2, alt: 'Inspiration 2' },
+  { src: designInspiration5, alt: 'Inspiration 5' },
 ];
 
 const designColors = [
@@ -127,120 +128,190 @@ function SectionHeader({ section }: { section: ProcessSection }) {
   );
 }
 
+interface HandshakeShape {
+  type: number;
+  data: number[];
+  color: number[];
+  score?: number;
+}
+
+const handshakeShapes = (handshakeData as HandshakeShape[]).filter((s) => s.type === 4);
+const handshakeBg = (handshakeData as HandshakeShape[]).find((s) => s.type === 0)!;
+const canvasW = handshakeBg.data[2];
+const canvasH = handshakeBg.data[3];
+
 function MeetAndBrief() {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useScrollInView(ref);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  });
+
+  const [visibleCount, setVisibleCount] = useState(0);
+
+  useMotionValueEvent(scrollYProgress, 'change', (progress) => {
+    const drawStart = 0.3;
+    const drawEnd = 0.5;
+    if (progress < drawStart) {
+      setVisibleCount(0);
+    } else if (progress >= drawEnd) {
+      setVisibleCount(handshakeShapes.length);
+    } else {
+      const t = (progress - drawStart) / (drawEnd - drawStart);
+      const eased = t * t * t;
+      setVisibleCount(Math.round(eased * handshakeShapes.length));
+    }
+  });
 
   return (
     <div className="about__meet-brief" ref={ref}>
-      <motion.div
-        className="about__hands-image"
-        initial={{ opacity: 0, scale: 1.05 }}
-        animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 1.05 }}
-        transition={{ duration: 1, ease: [0.4, 0, 0.2, 1], delay: isInView ? 0.2 : 0 }}
+      <svg
+        className="about__handshake-svg"
+        viewBox={`0 80 ${canvasW} ${canvasH - 160}`}
+        preserveAspectRatio="xMidYMid meet"
       >
-        <img src={handsImg} alt="Two hands reaching toward each other" />
-      </motion.div>
+        <rect
+          width={canvasW}
+          height={canvasH}
+          fill="#4B71D8"
+        />
+        {handshakeShapes.slice(0, visibleCount).map((shape, i) => {
+          const [tx, ty, sx, sy, rot] = shape.data;
+          const [r, g, b, a] = shape.color;
+          return (
+            <g key={i} transform={`translate(${tx} ${ty}) rotate(${rot}) scale(${sx} ${sy})`}>
+              <ellipse cx="0" cy="0" rx="1" ry="1" fill={`rgb(${r},${g},${b})`} fillOpacity={a / 255} />
+            </g>
+          );
+        })}
+      </svg>
     </div>
   );
 }
 
 function InspirationCards() {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useScrollInView(ref, { enterAt: 0.1 });
-  const [flipped, setFlipped] = useState<boolean[]>(new Array(inspirationCards.length).fill(false));
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  });
 
   const spread = 10;
-  const last = inspirationCards.length - 1;
-
-  useEffect(() => {
-    if (!isInView) {
-      setFlipped(new Array(inspirationCards.length).fill(false));
-      return;
-    }
-
-    const timeouts: number[] = [];
-    inspirationCards.forEach((_, index) => {
-      const delay = (last - index) * 0.6;
-      const flipTime = (delay + 0.3) * 1000;
-      const id = window.setTimeout(() => {
-        setFlipped(prev => {
-          const next = [...prev];
-          next[index] = true;
-          return next;
-        });
-      }, flipTime);
-      timeouts.push(id);
-    });
-
-    return () => timeouts.forEach(id => clearTimeout(id));
-  }, [isInView, last]);
 
   return (
-    <div className="about__inspiration" ref={ref}>
+    <div className="about__inspiration-section" ref={ref}>
       <div className="about__cards-container">
-        {inspirationCards.map((card, index) => {
-          const startX = (index / last) * spread;
-          const endX = startX + (79 - spread);
-          const delay = (last - index) * 0.6;
-          const zIndex = flipped[index] ? last - index : index;
-          return (
-            <motion.div
-              key={index}
-              className="about__card"
-              style={{ zIndex }}
-              initial={{ x: `${startX}vw` }}
-              animate={
-                isInView
-                  ? { x: `${endX}vw` }
-                  : { x: `${startX}vw` }
-              }
-              transition={{
-                duration: 0.6,
-                ease: 'easeInOut',
-                delay: isInView ? delay : 0,
-              }}
-            >
-              <img src={card.src} alt={card.alt} />
-            </motion.div>
-          );
-        })}
+        {inspirationCards.map((card, index) => (
+          <InspirationCard
+            key={index}
+            card={card}
+            index={index}
+            total={inspirationCards.length}
+            spread={spread}
+            scrollProgress={scrollYProgress}
+          />
+        ))}
       </div>
     </div>
   );
 }
 
+function InspirationCard({
+  card,
+  index,
+  total,
+  spread,
+  scrollProgress,
+}: {
+  card: { src: string; alt: string };
+  index: number;
+  total: number;
+  spread: number;
+  scrollProgress: MotionValue<number>;
+}) {
+  const last = total - 1;
+  const startX = (index / last) * spread;
+  const endX = startX + (79 - spread);
+
+  const animStart = 0.1 + (last - index) * 0.1;
+  const animEnd = animStart + 0.2;
+
+  const x = useTransform(
+    scrollProgress,
+    [animStart, animEnd],
+    [`${startX}vw`, `${endX}vw`]
+  );
+
+  const flipPoint = animStart + (animEnd - animStart) * 0.5;
+  const [flipped, setFlipped] = useState(false);
+  useMotionValueEvent(scrollProgress, 'change', (progress) => {
+    setFlipped(progress >= flipPoint);
+  });
+
+  const zIndex = flipped ? last - index : index;
+
+  return (
+    <motion.div
+      className="about__card"
+      style={{ x, zIndex }}
+    >
+      <img src={card.src} alt={card.alt} />
+    </motion.div>
+  );
+}
+
 function ColorSwatches() {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useScrollInView(ref);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  });
 
   return (
     <div className="about__colors" ref={ref}>
       <div className="about__colors-container">
         {designColors.map((swatch, index) => (
-          <div key={index} className="about__swatch-wrapper">
-            <motion.div
-              className="about__swatch"
-              style={{ backgroundColor: swatch.color }}
-              initial={{ height: 0 }}
-              animate={isInView ? { height: '100%' } : { height: 0 }}
-              transition={{
-                duration: 0.8,
-                ease: [0.4, 0, 0.2, 1],
-                delay: isInView ? index * 0.2 : 0,
-              }}
-            />
-            <motion.span
-              className="about__swatch-hex"
-              initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ duration: 0.5, delay: isInView ? index * 0.2 + 0.6 : 0 }}
-            >
-              {swatch.hex}
-            </motion.span>
-          </div>
+          <ColorSwatch
+            key={index}
+            swatch={swatch}
+            index={index}
+            total={designColors.length}
+            scrollProgress={scrollYProgress}
+          />
         ))}
       </div>
+    </div>
+  );
+}
+
+function ColorSwatch({
+  swatch,
+  index,
+  total,
+  scrollProgress,
+}: {
+  swatch: { hex: string; color: string };
+  index: number;
+  total: number;
+  scrollProgress: MotionValue<number>;
+}) {
+  const animStart = 0.1 + index * (0.3 / total);
+  const animEnd = animStart + 0.2;
+  const height = useTransform(scrollProgress, [animStart, animEnd], ['0%', '100%']);
+  const opacity = useTransform(scrollProgress, [animEnd - 0.05, animEnd], [0, 1]);
+
+  return (
+    <div className="about__swatch-wrapper">
+      <motion.div
+        className="about__swatch"
+        style={{ backgroundColor: swatch.color, height }}
+      />
+      <motion.span
+        className="about__swatch-hex"
+        style={{ opacity }}
+      >
+        {swatch.hex}
+      </motion.span>
     </div>
   );
 }
@@ -376,46 +447,53 @@ function TerminalWindow() {
 
 function About() {
   return (
-    <div className="container">
-      <div className="grid">
-        <div className="col-24">
-          <h2 className="about__main-title">PROCESS</h2>
+    <>
+      <div className="container">
+        <div className="grid">
+          <div className="col-24">
+            <h2 className="heading">
+              <span>P</span><span>R</span><span>O</span><span>C</span><span>E</span><span>S</span><span>S</span>
+            </h2>
+          </div>
         </div>
-      </div>
-      <div className="grid about__section">
-        <div className="col-24">
-          <SectionHeader section={sections[0]} />
-          <MeetAndBrief />
+        <div className="grid about__section">
+          <div className="col-24">
+            <SectionHeader section={sections[0]} />
+            <MeetAndBrief />
+          </div>
+        </div>
+
+        <div className="grid about__section">
+          <div className="col-24">
+            <SectionHeader section={sections[1]} />
+          </div>
         </div>
       </div>
 
-      <div className="grid about__section">
-        <div className="col-24">
-          <SectionHeader section={sections[1]} />
-          <InspirationCards />
-        </div>
-      </div>
+      <InspirationCards />
 
-      <div className="grid about__section">
-        <div className="col-24">
-          <SectionHeader section={sections[2]} />
-          <ColorSwatches />
+      <div className="container">
+        <div className="grid about__section">
+          <div className="col-24">
+            <SectionHeader section={sections[2]} />
+            <ColorSwatches />
+          </div>
         </div>
-      </div>
 
-      <div className="grid about__section">
-        <div className="col-24">
-          <SectionHeader section={sections[3]} />
-          <TerminalWindow />
+        <div className="grid about__section">
+          <div className="col-24">
+            <SectionHeader section={sections[3]} />
+            <TerminalWindow />
+          </div>
         </div>
-      </div>
 
-      <div className="grid about__section">
-        <div className="col-24">
-          <SectionHeader section={sections[4]} />
+        <div className="grid about__section">
+          <div className="col-24">
+            <SectionHeader section={sections[4]} />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

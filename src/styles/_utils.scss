@@ -70,3 +70,33 @@
     display: flex;
   }
 }
+
+.heading {
+  display: flex;
+  color: var(--color-white);
+  font-family: var(--font-gotham);
+  font-size: 0.625rem;
+  font-weight: normal;
+  line-height: 1;
+  letter-spacing: 0.3em;
+  margin: 0 0 4rem;
+  gap: 0.6em;
+
+  @media (min-width: $bp-sm) {
+    font-size: 0.75rem;
+    gap: 0.8em;
+  }
+
+  @media (min-width: $bp-md) {
+    font-size: 1.125rem;
+    gap: 1em;
+  }
+
+  @media (min-width: $bp-lg) {
+    font-size: 1.5rem;
+  }
+}
+
+.heading-gap {
+  width: 1.5em;
+}

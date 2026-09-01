@@ -146,7 +146,7 @@ function WhoWeAre() {
   return (
     <div className="who-we-are-wrapper" ref={wrapperRef}>
       <section className="container who-we-are">
-        <h2>Who We Are</h2>
+        <h2 className="heading">Who We Are</h2>
         {shuffledImages.map((img, i) => (
           <RevealImage
             key={i}

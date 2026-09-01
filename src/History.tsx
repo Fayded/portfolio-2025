@@ -19,7 +19,7 @@ import carmaxEmpty from './assets/carmax-empty.jpg';
 import carmaxOldCars from './assets/carmax-old-cars.jpg';
 import carmaxOneCar from './assets/carmax-one-car.jpg';
 import carmaxParkingLot from './assets/carmax-parking.jpg';
-import carmaxVintage from './assets/carmax-vintage.jpg';
+import carmaxMissing from './assets/carmax-missing.jpg';
 import carmaxSalesLot from './assets/carmax-sales-lot.jpg';
 
 // IHG
@@ -154,7 +154,7 @@ const brands: Brand[] = [
           { src: carmaxOneCar, alt: 'CarMax' },
           { src: carmaxParkingLot, alt: 'CarMax' },
           { src: carmaxEmpty, alt: 'CarMax' },
-          { src: carmaxVintage, alt: 'CarMax' },
+          { src: carmaxMissing, alt: 'CarMax' },
           { src: carmaxSalesLot, alt: 'CarMax' },
         ],
       },
@@ -179,7 +179,7 @@ const brands: Brand[] = [
           { src: carmaxOneCar, alt: 'CarMax' },
           { src: carmaxParkingLot, alt: 'CarMax' },
           { src: carmaxEmpty, alt: 'CarMax' },
-          { src: carmaxVintage, alt: 'CarMax' },
+          { src: carmaxMissing, alt: 'CarMax' },
           { src: carmaxSalesLot, alt: 'CarMax' },
         ],
       },
