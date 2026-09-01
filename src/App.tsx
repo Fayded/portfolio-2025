@@ -1,6 +1,6 @@
 import Splash from './Splash';
-import History from './History';
-import WhoWeAre from './WhoWeAre';
+// import History from './History';
+// import WhoWeAre from './WhoWeAre';
 import Who from './Who';
 // import Marks from './Marks';
 import Work from './Work';
@@ -13,8 +13,8 @@ function App() {
     <>
       <Splash />
       <Who />
-      <About />
       <Work />
+      <About />
       {/* <WhoWeAre /> */}
       {/* <Marks /> */}
       <Contact />
