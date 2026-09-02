@@ -75,7 +75,7 @@ const sections: ProcessSection[] = [
     subtitle: 'DELIVER',
     title: 'DELIVER',
     description:
-      '',
+      'We get it across the finish line. Final checks, files, documentation, and everything needed to launch cleanly, confidently, and without turning the last five percent into fifty percent of the project.',
   },
 ];
 
