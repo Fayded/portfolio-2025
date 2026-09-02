@@ -40,35 +40,42 @@ const sections: ProcessSection[] = [
     subtitle: 'MEET AND BRIEF',
     title: 'MEET AND\nBRIEF',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dapibus, purus sed luctus gravida, arcu elit sodales turpis, eu auctor augue libero sed purus. Fusce dapibus.',
+      'We meet, you talk, we ask an unreasonable number of questions. Then we figure out what you actually need, what you definitely don\'t, and how to make something worth making.',
   },
   {
     number: 'TWO / DEUS / DEUX',
     subtitle: 'DESIGN INSPIRATION',
     title: 'DESIGN\nINSPIRATION',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dapibus, purus sed luctus gravida, arcu elit sodales turpis, eu auctor augue libero sed purus. Fusce dapibus.',
+      'We gather the right references, visual cues, and creative territory before design starts. It gets everyone aligned early, gives the work a point of view, and saves us from making twelve versions of the wrong thing.',
   },
-  {
-    number: 'THREE / TRES / TOIS',
-    subtitle: 'DESIGN(S)',
-    title: 'DESIGN(S)',
+   {
+    number: 'THREE / TRES / TROIS',
+    subtitle: 'STRATEGY',
+    title: 'DESIGN\nINSPIRATION',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dapibus, purus sed luctus gravida, arcu elit sodales turpis, eu auctor augue libero sed purus. Fusce dapibus.',
+      'Before we make anything, we figure out what\'s actually worth making. We define the goals, audience, priorities, and point of view so the work has a reason to exist—and everyone knows what success is supposed to look like.',
   },
   {
     number: 'FOUR / CUATRO / QUATRE',
-    subtitle: 'DEVELOPMENT',
-    title: 'DEVELOPMENT',
+    subtitle: 'DESIGN(S)',
+    title: 'DESIGN(S)',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dapibus, purus sed luctus gravida, arcu elit sodales turpis, eu auctor augue libero sed purus. Fusce dapibus.',
+      'This is where the thinking starts to look like something. We turn strategy into work people actually want to look at, use, and remember. Every choice has a reason, every detail earns its place, and nothing gets added just because it looks nice.',
   },
   {
     number: 'FIVE / CINCO / CINQ',
+    subtitle: 'DEVELOPMENT',
+    title: 'DEVELOPMENT',
+    description:
+      'Then we build the thing for real. Clean code, sharp interactions, solid performance, and accessibility that isn\'t treated like a last-minute checkbox. It should look right, work fast, work for more people, and hold up long after launch.',
+  },
+  {
+    number: 'SIX / SEIS / SIX',
     subtitle: 'DELIVER',
     title: 'DELIVER',
     description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dapibus, purus sed luctus gravida, arcu elit sodales turpis, eu auctor augue libero sed purus. Fusce dapibus.',
+      '',
   },
 ];
 
