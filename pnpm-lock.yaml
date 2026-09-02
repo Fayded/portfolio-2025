@@ -7,16 +7,16 @@ settings:
 dependencies:
   framer-motion:
     specifier: ^12.23.24
-    version: 12.23.24(react-dom@19.2.0)(react@)
+    version: 12.23.24(react-dom@19.2.0)(react@19.2.8)
   gsap:
     specifier: ^3.14.2
     version: 3.14.2
   react:
-    specifier: 'link:'
-    version: 'link:'
+    specifier: ^19.1.1
+    version: 19.2.8
   react-dom:
     specifier: ^19.1.1
-    version: 19.2.0(react@)
+    version: 19.2.0(react@19.2.8)
 
 devDependencies:
   '@eslint/js':
@@ -1559,7 +1559,7 @@ packages:
     resolution: {integrity: sha512-GX+ysw4PBCz0PzosHDepZGANEuFCMLrnRTiEy9McGjmkCQYwRq4A/X786G/fjM/+OjsWSU1ZrY5qyARZmO/uwg==}
     dev: true
 
-  /framer-motion@12.23.24(react-dom@19.2.0)(react@):
+  /framer-motion@12.23.24(react-dom@19.2.0)(react@19.2.8):
     resolution: {integrity: sha512-HMi5HRoRCTou+3fb3h9oTLyJGBxHfW+HnNE25tAXOvVx/IvwMHK0cx7IR4a2ZU6sh3IX1Z+4ts32PcYBOqka8w==}
     peerDependencies:
       '@emotion/is-prop-valid': '*'
@@ -1575,8 +1575,8 @@ packages:
     dependencies:
       motion-dom: 12.23.23
       motion-utils: 12.23.6
-      react: 'link:'
-      react-dom: 19.2.0(react@)
+      react: 19.2.8
+      react-dom: 19.2.0(react@19.2.8)
       tslib: 2.8.1
     dev: false
 
@@ -1886,12 +1886,12 @@ packages:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
     dev: true
 
-  /react-dom@19.2.0(react@):
+  /react-dom@19.2.0(react@19.2.8):
     resolution: {integrity: sha512-UlbRu4cAiGaIewkPyiRGJk0imDN2T3JjieT6spoL2UeSf5od4n5LB/mQ4ejmxhCFT1tYe8IvaFulzynWovsEFQ==}
     peerDependencies:
       react: ^19.2.0
     dependencies:
-      react: 'link:'
+      react: 19.2.8
       scheduler: 0.27.0
     dev: false
 
@@ -1899,6 +1899,11 @@ packages:
     resolution: {integrity: sha512-QgT5//D3jfjJb6Gsjxv0Slpj23ip+HtOpnNgnb2S5zU3CB26G/IDPGoy4RJB42wzFE46DRsstbW6tKHoKbhAxw==}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /react@19.2.8:
+    resolution: {integrity: sha512-PWaYA1L/q9u2u7xYQi+Y3L3Yfnie7XyLeaJICV1MGD6LprsBxcAqGjYyr0eY3p+QdsA+x/Irkt4Qif8D63+Sbw==}
+    engines: {node: '>=0.10.0'}
+    dev: false
 
   /readdirp@4.1.2:
     resolution: {integrity: sha512-GDhwkLfywWL2s6vEjyhri+eXmfH6j1L7JE27WhqLeYzoh/A3DBaYGEj2H/HFZCn/kMfim73FXxEJTw06WtxQwg==}

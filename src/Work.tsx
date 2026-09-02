@@ -389,7 +389,7 @@ function BrandSection({ brand }: { brand: Brand }) {
           <motion.a
             href="#"
             className="work-list--item"
-            onClick={(e) => handleImageClick(index, e)}
+            onClick={(e: React.MouseEvent<HTMLAnchorElement>) => handleImageClick(index, e)}
             style={{
               backgroundSize: 'cover',
               backgroundPosition: 'center',

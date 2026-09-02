@@ -12,7 +12,7 @@
   "dependencies": {
     "framer-motion": "^12.23.24",
     "gsap": "^3.14.2",
-    "react": "link:",
+    "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
   "devDependencies": {

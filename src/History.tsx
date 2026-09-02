@@ -760,7 +760,7 @@ function BrandSection({ brand }: { brand: Brand }) {
           <motion.a
             href="#"
             className="history-list--item"
-            onClick={(e) => {
+            onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
               e.preventDefault();
               setSelectedIndex(selectedIndex === index ? null : index);
             }}
